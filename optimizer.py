@@ -25,12 +25,16 @@ DEFAULT_PARAMS = {
     "delta_t": 0.25            # 15-minute time intervals (hours)
 }
 
-def calculate_baseline(df: pd.DataFrame, params: Dict[str, Any] = DEFAULT_PARAMS) -> Tuple[float, float, pd.DataFrame]:
+def calculate_baseline(df: pd.DataFrame, custom_params: Dict[str, Any] = None) -> Tuple[float, float, pd.DataFrame]:
     """
     Calculates the unoptimized baseline operation:
     CHP runs strictly at flat 45 MW to match electrical demand, aux boiler supplies thermal deficit,
     zero grid import arbitrage, zero district heat export.
     """
+    params = DEFAULT_PARAMS.copy()
+    if custom_params:
+        params.update(custom_params)
+        
     dt = params["delta_t"]
     df_base = df.copy()
     
