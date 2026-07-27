@@ -15,10 +15,10 @@ from typing import Dict, Any
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8")
 
-from data_generator import generate_energy_profile
-from data_validator import validate_and_sanitize_telemetry
-from optimizer import optimize_chp_dispatch, DEFAULT_PARAMS
-from sensitivity_engine import run_sensitivity_sweep, compute_shadow_prices_summary
+from src.data_generator import generate_energy_profile
+from src.data_validator import validate_and_sanitize_telemetry
+from src.optimizer import optimize_chp_dispatch, DEFAULT_PARAMS
+from src.sensitivity_engine import run_sensitivity_sweep, compute_shadow_prices_summary
 
 def load_site_config(config_path: str) -> Dict[str, Any]:
     """Loads site configuration JSON file."""
@@ -97,9 +97,11 @@ def run_site_pipeline(config_path: str, run_sensitivity: bool = False, export_au
             "optimization_summary": summary,
             "sensitivity_confidence_bounds": sensitivity_stats
         }
-        with open("AUDIT_LEDGER.json", "w", encoding="utf-8") as f:
+        os.makedirs("data", exist_ok=True)
+        audit_file = os.path.join("data", "AUDIT_LEDGER.json")
+        with open(audit_file, "w", encoding="utf-8") as f:
             json.dump(audit_ledger, f, indent=2)
-        print(f"      Saved audit trail ledger to 'AUDIT_LEDGER.json'")
+        print(f"      Saved audit trail ledger to '{audit_file}'")
         
     print(f"\n==================================================================")
     print(f"SITE ONBOARDING COMPLETE. READY FOR CLIENT PRESENTATION.")

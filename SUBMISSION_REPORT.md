@@ -14,7 +14,7 @@ When entering Henkel’s Düsseldorf-Holthausen headquarters site—producing ~4
 2. **Thermal Load Engine**: High-temperature spray-drying towers (evaporating detergent slurry into powder baseline load) requiring ~60 MWt process steam.
 3. **Thermal Export & Storage Link**: A 700 m² waste-heat energy center built directly on-site in partnership with **Stadtwerke Düsseldorf** and **Bilfinger** (commissioned April 2026), feeding excess thermal energy via a 3.6 km pipeline into the municipal district heating grid serving Garath, Benrath, and Holthausen (reducing ~6,500 tCO2e/yr).
 
-Crucially, this solution is not designed as a static, one-off spreadsheet calculation. Instead, it is implemented as a **fail-proof, modular Enterprise Software Engine (`sample_energy_os.py`)** capable of ingesting raw telemetry data, executing data quality validation, running deterministic MILP optimization, performing multi-variable sensitivity sweeps, and producing audit ledgers for *any* industrial facility across the DAX-40 index.
+Crucially, this solution is not designed as a static, one-off spreadsheet calculation. Instead, it is implemented as a **fail-proof, modular Enterprise Software Engine (`src/sample_energy_os.py`)** capable of ingesting raw telemetry data, executing data quality validation, running deterministic MILP optimization, performing multi-variable sensitivity sweeps, and producing audit ledgers for *any* industrial facility across the DAX-40 index.
 
 ---
 
@@ -114,26 +114,26 @@ To eliminate repeated engineering effort across future DAX-40 client deployments
                                            |
                                            v
                              +---------------------------+
-                             |    data_validator.py      |  <-- Telemetry Sanitation & Imputation
+                             |  src/data_validator.py    |  <-- Telemetry Sanitation & Imputation
                              +---------------------------+
                                            |
                                            v
                              +---------------------------+
-                             |      optimizer.py         |  <-- MILP Deterministic Solver (PuLP)
+                             |    src/optimizer.py       |  <-- MILP Deterministic Solver (PuLP)
                              +---------------------------+
                                            |
                     +----------------------+----------------------+
                     |                                             |
                     v                                             v
      +-----------------------------+               +-----------------------------+
-     |   sensitivity_engine.py     |               |    AUDIT_LEDGER.json        |
-     | (Monte Carlo & Shadow Pricing)               |  (Verifiable Proof Export)  |
+     |  src/sensitivity_engine.py  |               |    data/AUDIT_LEDGER.json   |
+     | (Monte Carlo & Shadow Price)|               |  (Verifiable Proof Export)  |
      +-----------------------------+               +-----------------------------+
 ```
 
 1. **Modular Configuration (`site_config.json`)**: Encapsulates site specifications, asset limits, and tariffs so engineers can onboard new sites by simply updating a JSON schema.
-2. **Fail-Proof Validator (`data_validator.py`)**: Sanitizes incoming telemetry, repairing missing timestamps via linear interpolation and clipping sensor anomalies.
-3. **CLI Engine & Master Pipeline (`sample_energy_os.py` & `run_full_pipeline.py`)**: Single CLI execution running end-to-end data validation, MILP solving, sensitivity sweeps, and audit ledger generation.
+2. **Fail-Proof Validator (`src/data_validator.py`)**: Sanitizes incoming telemetry, repairing missing timestamps via linear interpolation and clipping sensor anomalies.
+3. **CLI Engine & Master Pipeline (`src/sample_energy_os.py` & `src/run_full_pipeline.py`)**: Single CLI execution running end-to-end data validation, MILP solving, sensitivity sweeps, and audit ledger generation.
 4. **CI/CD Integration (`.github/workflows/ci.yml`)**: Continuous testing pipeline running unit tests on every commit to ensure zero regressions.
 
 ---
@@ -143,7 +143,7 @@ To eliminate repeated engineering effort across future DAX-40 client deployments
 In compliance with scorecard evaluation criteria:
 * **AI Model & Reasoning**: Gemini 3.6 Flash (High) via Antigravity Agentic AI.
 * **Optimization Engine**: Mixed-Integer Linear Programming (MILP) formulated in Python using `PuLP` (CBC solver).
-* **Telemetry Sanitation**: `data_validator.py` with missing value linear interpolation and load bound clipping.
-* **Sensitivity Engine**: `sensitivity_engine.py` performing 25-point Monte Carlo grid search across gas, carbon tax, and spot price volatility.
-* **Visualization & UX**: `Streamlit` and `Plotly` dark-mode interface (`app.py`).
-* **CI/CD & Version Control**: `Git` with structured commit logging and GitHub Actions workflow automation.
+* **Telemetry Sanitation**: `src/data_validator.py` with missing value linear interpolation and load bound clipping.
+* **Sensitivity Engine**: `src/sensitivity_engine.py` performing 25-point Monte Carlo grid search across gas, carbon tax, and spot price volatility.
+* **Visualization & UX**: `Streamlit` and `Plotly` dark-mode interface (`src/app.py`).
+* **CI/CD & Version Control**: `Git` with structured commit logging and GitHub Actions workflow automation (`.github/workflows/ci.yml`).

@@ -26,13 +26,13 @@ jobs:
 
     - name: Run Automated Pytest Suite
       run: |
-        pytest test_suite.py -v
+        PYTHONPATH=. pytest tests/test_suite.py -v
 
     - name: Execute Full Site Pipeline & Audit Export
       run: |
-        python sample_energy_os.py --config site_config.json --run-sensitivity --export-audit
+        PYTHONPATH=. python -m src.sample_energy_os --config site_config.json --run-sensitivity --export-audit
 
     - name: Verify Audit Ledger Artifact
       run: |
-        test -f AUDIT_LEDGER.json
-        test -f sensitivity_matrix_results.csv
+        test -f data/AUDIT_LEDGER.json
+        test -f data/sensitivity_matrix_results.csv

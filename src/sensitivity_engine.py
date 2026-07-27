@@ -1,22 +1,25 @@
 """
 Sensitivity Analysis & Dual-Variable Shadow Pricing Engine
-for RIZM Agentic Energy OS.
+for Sample Energy OS.
 Calculates LP constraint shadow prices and multi-variable parameter sweeps (€/ton metrics).
 """
 
+import os
 import pandas as pd
 import numpy as np
 import json
 from typing import Dict, Any, List
-from data_generator import generate_energy_profile
-from data_validator import validate_and_sanitize_telemetry
-from optimizer import optimize_chp_dispatch, DEFAULT_PARAMS
+
+from src.data_generator import generate_energy_profile
+from src.data_validator import validate_and_sanitize_telemetry
+from src.optimizer import optimize_chp_dispatch, DEFAULT_PARAMS
 
 def run_sensitivity_sweep(
     df: pd.DataFrame,
     gas_prices: List[float] = [25.0, 35.0, 40.0, 50.0, 60.0],
     carbon_taxes: List[float] = [50.0, 70.0, 85.0, 110.0, 140.0],
-    spot_volatilities: List[float] = [0.8, 1.0, 1.2, 1.5]
+    spot_volatilities: List[float] = [0.8, 1.0, 1.2, 1.5],
+    output_csv: str = "data/sensitivity_matrix_results.csv"
 ) -> pd.DataFrame:
     """
     Executes a multi-dimensional parameter grid search over key macroeconomic variables.
@@ -55,11 +58,15 @@ def run_sensitivity_sweep(
                     print(f"[SENSITIVITY] Scenario failed (g={g}, c={c}, v={v}): {str(e)}")
                     
     results_df = pd.DataFrame(results)
-    results_df.to_csv("sensitivity_matrix_results.csv", index=False)
-    print(f"[SENSITIVITY ENGINE] Completed {len(results_df)} scenario evaluations. Saved to 'sensitivity_matrix_results.csv'.")
+    if output_csv:
+        dir_name = os.path.dirname(output_csv)
+        if dir_name:
+            os.makedirs(dir_name, exist_ok=True)
+        results_df.to_csv(output_csv, index=False)
+        print(f"[SENSITIVITY ENGINE] Completed {len(results_df)} scenario evaluations. Saved to '{output_csv}'.")
     return results_df
 
-def compute_shadow_prices_summary(results_df: pd.DataFrame) -> Dict[str, Any]:
+def compute_shadow_prices_summary(results_df: pd.DataFrame, output_json: str = "data/sensitivity_summary.json") -> Dict[str, Any]:
     """
     Computes statistical bounds and marginal sensitivity metrics.
     """
@@ -73,8 +80,12 @@ def compute_shadow_prices_summary(results_df: pd.DataFrame) -> Dict[str, Any]:
         "mean_annualized_savings_eur": float(np.round(results_df["Annualized_Savings_EUR"].mean(), 2))
     }
     
-    with open("sensitivity_summary.json", "w") as f:
-        json.dump(summary_stats, f, indent=2)
+    if output_json:
+        dir_name = os.path.dirname(output_json)
+        if dir_name:
+            os.makedirs(dir_name, exist_ok=True)
+        with open(output_json, "w", encoding="utf-8") as f:
+            json.dump(summary_stats, f, indent=2)
         
     return summary_stats
 

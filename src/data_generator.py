@@ -1,12 +1,13 @@
 """
-Data Generator Module for RIZM Energy OS — Henkel Düsseldorf Site Pilot.
+Data Generator Module for Sample Energy OS — Henkel Düsseldorf Site Pilot.
 Synthesizes a realistic 96-interval (15-minute, 24-hour) energy profile dataset.
 """
 
+import os
 import pandas as pd
 import numpy as np
 
-def generate_energy_profile(output_file: str = "industrial_energy_profile.csv", seed: int = 42) -> pd.DataFrame:
+def generate_energy_profile(output_file: str = "data/industrial_energy_profile.csv", seed: int = 42) -> pd.DataFrame:
     np.random.seed(seed)
     intervals = 96  # 24 hours * 4 intervals/hour
     timestamps = pd.date_range(start="2026-07-27 00:00", periods=intervals, freq="15min")
@@ -46,8 +47,12 @@ def generate_energy_profile(output_file: str = "industrial_energy_profile.csv", 
         "District_Heating_Capacity_MWt": np.round(dh_cap, 2)
     })
     
-    df.to_csv(output_file, index=False)
-    print(f"[DATA GENERATOR] Successfully generated {len(df)} intervals dataset saved to '{output_file}'.")
+    if output_file:
+        dir_name = os.path.dirname(output_file)
+        if dir_name:
+            os.makedirs(dir_name, exist_ok=True)
+        df.to_csv(output_file, index=False)
+        print(f"[DATA GENERATOR] Successfully generated {len(df)} intervals dataset saved to '{output_file}'.")
     return df
 
 if __name__ == "__main__":

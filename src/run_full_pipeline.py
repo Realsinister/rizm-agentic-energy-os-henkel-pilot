@@ -14,7 +14,9 @@ if sys.platform == "win32":
 def run_command(command: str) -> bool:
     print(f"\n[PIPELINE EXECUTOR] Running: {command}")
     env = os.environ.copy()
-    env["PYTHONPATH"] = r"C:\Users\yashg\AppData\Roaming\Python\Python314\site-packages"
+    root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+    sys_path = r"C:\Users\yashg\AppData\Roaming\Python\Python314\site-packages"
+    env["PYTHONPATH"] = f"{root_dir};{sys_path}"
     result = subprocess.run(command, shell=True, env=env)
     return result.returncode == 0
 
@@ -25,13 +27,13 @@ def main():
     
     # Step 1: Run Unit Test Verification Suite
     print("\n---> STEP 1: Running Automated Pytest Verification Suite")
-    if not run_command("python -m pytest test_suite.py -v"):
+    if not run_command("python -m pytest tests/test_suite.py -v"):
         print("PIPELINE FAILED AT STEP 1 (Unit Tests Failed)")
         sys.exit(1)
         
     # Step 2: Run Reusable CLI Pipeline with Sensitivity Sweep
     print("\n---> STEP 2: Running Sample Energy OS CLI Site Pipeline & Sensitivity Engine")
-    if not run_command("python sample_energy_os.py --config site_config.json --run-sensitivity"):
+    if not run_command("python -m src.sample_energy_os --config site_config.json --run-sensitivity"):
         print("PIPELINE FAILED AT STEP 2 (CLI Execution Failed)")
         sys.exit(1)
         

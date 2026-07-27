@@ -2,7 +2,7 @@
 
 Welcome to the hiring challenge submission for the **Forward Deployed AI Energy Engineer** position, created by **Yash G.**
 
-This repository presents a complete, data-driven, and algorithmically grounded pilot strategy for onboarding **Henkel's flagship headquarters plant in Düsseldorf-Holthausen**, alongside an enterprise-grade, fail-proof **Industrial Energy Optimization Core Engine** (`sample_energy_os.py`) reusable for future DAX-40 client deployments.
+This repository presents a complete, data-driven, and algorithmically grounded pilot strategy for onboarding **Henkel's flagship headquarters plant in Düsseldorf-Holthausen**, alongside an enterprise-grade, fail-proof **Industrial Energy Optimization Core Engine** (`src/sample_energy_os.py`) structured for future DAX-40 client deployments.
 
 ---
 
@@ -14,9 +14,9 @@ This repository presents a complete, data-driven, and algorithmically grounded p
    - Multi-variable sensitivity analysis (€/ton confidence matrix: P10 to P90 bounds).
    - Methodological trade-offs, MILP shadow pricing, and explicit toolchain disclosure.
 2. **🏗️ [SYSTEM_ARCHITECTURE.md](file:///d:/RIZM_Challenge/SYSTEM_ARCHITECTURE.md)**: **SINGLE SOURCE OF TRUTH (SSOT)** detailing 84 MW CHP parameters, thermal load limits, district heat links, MILP formulation, and agent verification checkpoints.
-3. **💻 [sample_energy_os.py](file:///d:/RIZM_Challenge/sample_energy_os.py)**: Reusable CLI Engine for Forward Deployed AI Energy Engineers.
-4. **🔄 [run_full_pipeline.py](file:///d:/RIZM_Challenge/run_full_pipeline.py)**: Automated end-to-end master pipeline execution script.
-5. **⚡ [app.py](file:///d:/RIZM_Challenge/app.py)**: Interactive Streamlit web application dashboard.
+3. **💻 [src/sample_energy_os.py](file:///d:/RIZM_Challenge/src/sample_energy_os.py)**: Reusable CLI Engine for Forward Deployed AI Energy Engineers.
+4. **🔄 [src/run_full_pipeline.py](file:///d:/RIZM_Challenge/src/run_full_pipeline.py)**: Automated end-to-end master pipeline execution script.
+5. **⚡ [src/app.py](file:///d:/RIZM_Challenge/src/app.py)**: Interactive Streamlit web application dashboard.
 
 ---
 
@@ -34,24 +34,44 @@ This repository presents a complete, data-driven, and algorithmically grounded p
 
 ---
 
-## 📁 Enterprise Repository Structure
+## 📁 Clean Enterprise Repository Structure
 
 ```
 RIZM_Challenge/
-├── README.md                     # Primary entry point & reviewer guide
-├── SUBMISSION_REPORT.md          # Executive report, €/ton use cases & sensitivity
-├── SYSTEM_ARCHITECTURE.md        # Single Source of Truth (SSOT) system specs
-├── site_config.json              # Modular site configuration schema
-├── sample_energy_os.py           # Reusable CLI engine for site onboarding
-├── data_validator.py             # Fail-proof telemetry data quality validator
-├── sensitivity_engine.py         # Multi-variable parameter sweep & shadow pricing
-├── optimizer.py                  # PuLP MILP deterministic optimization engine
-├── data_generator.py             # 96-interval (15-min) EPEX SPOT & load synthesizer
-├── run_full_pipeline.py          # Master automated pipeline execution script
-├── app.py                        # Interactive Streamlit dashboard
-├── test_suite.py                 # Automated pytest unit test suite
-├── requirements.txt              # Project Python dependencies
-└── .github/workflows/ci.yml      # Automated GitHub Actions CI/CD pipeline
+├── README.md                      # Primary entry point & reviewer guide
+├── SUBMISSION_REPORT.md           # Executive report, €/ton use cases & sensitivity
+├── SYSTEM_ARCHITECTURE.md         # Single Source of Truth (SSOT) system specs
+├── site_config.json               # Modular site configuration schema
+├── requirements.txt               # Dependencies
+├── .gitignore                     # Git ignore rules
+│
+├── .github/
+│   └── workflows/
+│       └── ci.yml                 # GitHub Actions CI/CD pipeline
+│
+├── src/                           # Core Python source package
+│   ├── __init__.py
+│   ├── sample_energy_os.py        # Reusable CLI site onboarding engine
+│   ├── optimizer.py               # PuLP MILP deterministic solver
+│   ├── data_generator.py          # 15-min profile dataset synthesizer
+│   ├── data_validator.py          # Telemetry sanitation & quality validator
+│   ├── sensitivity_engine.py      # Monte Carlo & shadow pricing engine
+│   ├── run_full_pipeline.py       # Master pipeline orchestrator
+│   └── app.py                     # Streamlit executive dashboard UI
+│
+├── tests/                         # Automated unit test suite
+│   ├── __init__.py
+│   └── test_suite.py              # Pytest verification suite
+│
+├── data/                          # Generated datasets & audit ledgers
+│   ├── industrial_energy_profile.csv
+│   ├── sensitivity_matrix_results.csv
+│   ├── sensitivity_summary.json
+│   └── AUDIT_LEDGER.json
+│
+└── docs/                          # Reference challenge documentation
+    ├── RIZM Challenge Case.md
+    └── RIZM Challenge Deep Research.md
 ```
 
 ---
@@ -59,25 +79,25 @@ RIZM_Challenge/
 ## 🛠️ Quickstart & Execution Instructions
 
 ### 1. Run Automated Full Pipeline Orchestrator (CLI)
-Executes data validation, MILP optimization, sensitivity sweeps, unit testing, and exports `AUDIT_LEDGER.json`:
+Executes data validation, MILP optimization, sensitivity sweeps, unit testing, and exports `data/AUDIT_LEDGER.json`:
 ```bash
-python run_full_pipeline.py
+python src/run_full_pipeline.py
 ```
 
 ### 2. Run Site Onboarding CLI Directly
 Onboard any facility configuration with sensitivity sweeps:
 ```bash
-python sample_energy_os.py --config site_config.json --run-sensitivity --export-audit
+python -m src.sample_energy_os --config site_config.json --run-sensitivity --export-audit
 ```
 
 ### 3. Run Automated Pytest Verification Suite
 ```bash
-python -m pytest test_suite.py -v
+pytest tests/test_suite.py -v
 ```
 
 ### 4. Launch Interactive Streamlit Web Dashboard
 ```bash
-streamlit run app.py
+streamlit run src/app.py
 ```
 
 ---
@@ -89,5 +109,5 @@ In compliance with scorecard evaluation criteria:
 * **Optimization Engine**: Mixed-Integer Linear Programming (MILP) formulated in Python using `PuLP` (CBC solver).
 * **Telemetry Sanitation**: `data_validator.py` with missing value linear interpolation and load bound clipping.
 * **Sensitivity Engine**: `sensitivity_engine.py` performing 25-point Monte Carlo grid search across gas, carbon tax, and spot price volatility.
-* **Visualization & UX**: `Streamlit` and `Plotly` dark-mode interface (`app.py`).
+* **Visualization & UX**: `Streamlit` and `Plotly` dark-mode interface (`src/app.py`).
 * **CI/CD & Version Control**: `Git` with structured commit logging and GitHub Actions workflow automation (`.github/workflows/ci.yml`).

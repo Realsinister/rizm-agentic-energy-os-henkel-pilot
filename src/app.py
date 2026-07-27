@@ -9,8 +9,8 @@ import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from data_generator import generate_energy_profile
-from optimizer import optimize_chp_dispatch, calculate_baseline, DEFAULT_PARAMS
+from src.data_generator import generate_energy_profile
+from src.optimizer import optimize_chp_dispatch, calculate_baseline, DEFAULT_PARAMS
 
 # Page Configuration
 st.set_page_config(

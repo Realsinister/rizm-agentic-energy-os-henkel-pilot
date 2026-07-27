@@ -1,17 +1,17 @@
 """
-Automated Test Suite for RIZM Energy OS — Henkel Düsseldorf Site Pilot.
+Automated Test Suite for Sample Energy OS — Henkel Düsseldorf Site Pilot.
 Verifies system architecture constraints, data schemas, energy balances, and solver convergence.
 """
 
 import pytest
 import pandas as pd
 import numpy as np
-from data_generator import generate_energy_profile
-from optimizer import optimize_chp_dispatch, calculate_baseline, DEFAULT_PARAMS
+from src.data_generator import generate_energy_profile
+from src.optimizer import optimize_chp_dispatch, calculate_baseline, DEFAULT_PARAMS
 
 def test_data_generation():
     """Verify data generator produces exactly 96 non-null intervals with expected columns."""
-    df = generate_energy_profile(output_file="test_profile.csv")
+    df = generate_energy_profile(output_file="data/test_profile.csv")
     assert len(df) == 96, f"Expected 96 intervals, got {len(df)}"
     assert not df.isnull().values.any(), "Generated data contains null values"
     
@@ -28,7 +28,7 @@ def test_data_generation():
 
 def test_baseline_calculation():
     """Verify baseline energy calculation consistency."""
-    df = generate_energy_profile(output_file="test_profile.csv")
+    df = generate_energy_profile(output_file="data/test_profile.csv")
     baseline_cost, baseline_co2, df_base = calculate_baseline(df)
     
     assert baseline_cost > 0, "Baseline cost must be positive"
@@ -37,7 +37,7 @@ def test_baseline_calculation():
 
 def test_milp_solver_convergence():
     """Verify PuLP solver converges to optimal solution and respects physics constraints."""
-    df = generate_energy_profile(output_file="test_profile.csv")
+    df = generate_energy_profile(output_file="data/test_profile.csv")
     summary, res_df = optimize_chp_dispatch(df)
     
     # 1. Financial Sanity
@@ -60,4 +60,4 @@ def test_milp_solver_convergence():
     assert (res_df["H_dh"] <= res_df["District_Heating_Capacity_MWt"] + 1e-4).all(), "District heat cap exceeded"
 
 if __name__ == "__main__":
-    pytest.main(["-v", "test_suite.py"])
+    pytest.main(["-v", "tests/test_suite.py"])
