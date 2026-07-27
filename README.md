@@ -6,14 +6,11 @@ This repository presents a complete, data-driven, and algorithmically grounded p
 
 ---
 
-## 🌐 Live Interactive Process & Layout Explorers (GitHub Pages)
+## 🌐 Live Interactive Web Application (GitHub Pages)
 
-You can explore and compare two interactive web application layouts built for hiring reviewers:
+👉 **[Launch Live Interactive Web Application (index.html)](file:///d:/RIZM_Challenge/index.html)** — Interactive System Architecture & Optimization Lifecycle Web App featuring 5 connected process stages, real-time viewport inspector dock, zero-hallucination MILP formulas, and commercial FDE strategy.
 
-1. 👉 **[Version A: Executive Pitch Deck UI (index.html)](file:///d:/RIZM_Challenge/index.html)** — Interactive tabbed navigation, glassmorphic cards, live ROI simulator, and C-suite presentation tabs.
-2. 👉 **[Version B: Interactive Methodology Flowchart (flowchart.html)](file:///d:/RIZM_Challenge/flowchart.html)** — 5-stage interactive flowchart with clickable nodes, challenge question inspector panel, and mathematical equation breakdowns.
-
-*(When pushed to GitHub, enable GitHub Pages under Repository Settings -> Pages to serve `index.html` as a live shareable website link!)*
+*(When pushed to GitHub, enable GitHub Pages under Repository Settings -> Pages to serve `index.html` directly as a live shareable website link!)*
 
 ---
 
@@ -30,25 +27,24 @@ To execute complex engineering research, data validation, mathematical solving, 
   - *Research Agent*: Conducted OSINT asset mapping for Henkel Düsseldorf.
   - *Telemetry Validator Agent*: Implemented linear interpolation imputation and clipping in `src/data_validator.py`.
   - *Optimization Agent*: Formulated deterministic PuLP MILP solver in `src/optimizer.py`.
-  - *UI & Presentation Agent*: Developed interactive Streamlit dashboard in `src/app.py` and GitHub Pages pitch deck in `index.html` & `flowchart.html`.
+  - *UI & Presentation Agent*: Developed interactive Streamlit dashboard in `src/app.py` and GitHub Pages interactive web app in `index.html`.
 * **Inter-Agent Protocols & Verification**: Scoped read/write permissions and automated contract checks via `tests/test_suite.py` eliminated race conditions and state drift across agent handoffs.
 
 ---
 
 ## 📌 Executive Navigation & Key Entry Points
 
-1. **🌐 [index.html (Version A: Pitch Deck UI)](file:///d:/RIZM_Challenge/index.html)**: Interactive visual flowchart, OSINT asset map, SSoT layer brief, live ROI simulator, and commercial FDE strategy.
-2. **🔀 [flowchart.html (Version B: Interactive Flowchart UI)](file:///d:/RIZM_Challenge/flowchart.html)**: 5-stage node flowchart with challenge question inspector & equation breakdowns.
-3. **📄 [SUBMISSION_REPORT.md](file:///d:/RIZM_Challenge/SUBMISSION_REPORT.md)**: **THE CORE DELIVERABLE**. Contains the executive write-up addressing:
+1. **🌐 [index.html (Interactive Web Application)](file:///d:/RIZM_Challenge/index.html)**: 5-stage interactive methodology lifecycle with real-time inspector dock, MILP equations, and OSINT asset maps.
+2. **📄 [SUBMISSION_REPORT.md](file:///d:/RIZM_Challenge/SUBMISSION_REPORT.md)**: **THE CORE DELIVERABLE**. Contains the executive write-up addressing:
    - Grounded business use cases in **€ / metric ton** of detergent produced.
    - Anti-hallucination SSoT layer and multi-agent environment management.
    - The single most load-bearing data request and single key stakeholder meeting strategy.
    - Multi-variable sensitivity analysis (€/ton confidence matrix: P10 to P90 bounds).
    - Methodological trade-offs, MILP shadow pricing, and explicit toolchain disclosure.
-4. **🏗️ [SYSTEM_ARCHITECTURE.md](file:///d:/RIZM_Challenge/SYSTEM_ARCHITECTURE.md)**: **SINGLE SOURCE OF TRUTH (SSOT)** detailing 84 MW CHP parameters, thermal load limits, district heat links, MILP formulation, and agent verification checkpoints.
-5. **⚡ [Sample Energy OS.bat](file:///d:/RIZM_Challenge/Sample%20Energy%20OS.bat)**: **1-CLICK LAUNCHER**. Instantly installs dependencies and opens the interactive Streamlit dashboard.
-6. **💻 [src/sample_energy_os.py](file:///d:/RIZM_Challenge/src/sample_energy_os.py)**: Reusable CLI Engine for Forward Deployed AI Energy Engineers.
-7. **🔄 [src/run_full_pipeline.py](file:///d:/RIZM_Challenge/src/run_full_pipeline.py)**: Automated end-to-end master pipeline execution script.
+3. **🏗️ [SYSTEM_ARCHITECTURE.md](file:///d:/RIZM_Challenge/SYSTEM_ARCHITECTURE.md)**: **SINGLE SOURCE OF TRUTH (SSOT)** detailing 84 MW CHP parameters, thermal load limits, district heat links, MILP formulation, and agent verification checkpoints.
+4. **⚡ [Sample Energy OS.bat](file:///d:/RIZM_Challenge/Sample%20Energy%20OS.bat)**: **1-CLICK LAUNCHER**. Instantly installs dependencies and opens the interactive Streamlit dashboard.
+5. **💻 [src/sample_energy_os.py](file:///d:/RIZM_Challenge/src/sample_energy_os.py)**: Reusable CLI Engine for Forward Deployed AI Energy Engineers.
+6. **🔄 [src/run_full_pipeline.py](file:///d:/RIZM_Challenge/src/run_full_pipeline.py)**: Automated end-to-end master pipeline execution script.
 
 ---
 
@@ -70,8 +66,7 @@ To execute complex engineering research, data validation, mathematical solving, 
 
 ```
 RIZM_Challenge/
-├── index.html                     # Interactive Web Pitch Deck (Version A)
-├── flowchart.html                 # Interactive Methodology Flowchart (Version B)
+├── index.html                     # Primary Interactive Web Application (GitHub Pages)
 ├── README.md                      # Primary entry point & reviewer guide
 ├── SUBMISSION_REPORT.md           # Executive report, €/ton use cases & sensitivity
 ├── SYSTEM_ARCHITECTURE.md         # Single Source of Truth (SSOT) system specs
@@ -79,6 +74,9 @@ RIZM_Challenge/
 ├── Sample Energy OS.bat           # 1-Click Windows Batch Launcher for Dashboard
 ├── requirements.txt               # Dependencies
 ├── .gitignore                     # Git ignore rules
+│
+├── archive/                       # Archived design iterations
+│   └── pitch_deck_version_a.html  # Archived Tabbed Pitch Deck layout
 │
 ├── .github/
 │   └── workflows/
@@ -104,9 +102,9 @@ RIZM_Challenge/
 │   ├── sensitivity_summary.json
 │   └── AUDIT_LEDGER.json
 │
-└── docs/                          # Reference challenge documentation & GitHub Pages
-    ├── index.html                 # Copy of Version A for /docs deploy
-    ├── flowchart.html             # Copy of Version B for /docs deploy
+└── docs/                          # Reference challenge documentation & GitHub Pages root
+    ├── index.html                 # Main entry point for /docs deploy
+    ├── archive/                   # Archived docs layouts
     ├── RIZM Challenge Case.md
     └── RIZM Challenge Deep Research.md
 ```
