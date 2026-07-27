@@ -188,7 +188,7 @@ def optimize_chp_dispatch(
     return summary, res_df
 
 if __name__ == "__main__":
-    from data_generator import generate_energy_profile
+    from src.data_generator import generate_energy_profile
     df = generate_energy_profile()
     summary, res_df = optimize_chp_dispatch(df)
     print("\n================ RIZM OPTIMIZATION SUMMARY ================")

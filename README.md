@@ -20,17 +20,17 @@ This repository presents a complete, data-driven, and algorithmically grounded p
 
 ---
 
-## 🏆 Key Challenge Results & Summary Metrics
+## 🏆 Key Challenge Results & Summary Metrics (Exact MILP Optimizer Output)
 
 * **Target Facility**: Henkel AG & Co. KGaA (Düsseldorf-Holthausen site, 400,000 t/a production volume, 84 MW captive gas CHP plant, Stadtwerke Düsseldorf district heating export link).
 * **Primary Optimization Metric**: **€ / metric ton of product saved**.
 
-| Financial / Operational Metric | Base Case Scenario | P10 (Pessimistic) | P90 (Optimistic) |
+| Financial / Operational Metric | Base Case Scenario (Default) | P10 (Pessimistic) | P90 (Optimistic) |
 |---|---|---|---|
-| **Daily Net Cost Savings (€)** | **€11,860.00 / day** | €4,120.50 / day | €18,450.00 / day |
-| **SAVINGS PER METRIC TON (€/ton)** | **€10.82 / metric ton** | **€3.76 / ton** | **€16.84 / ton** |
-| **Annualized EBITDA Impact (€/yr)** | **€4.33 Million / year** | €1.50 Million / yr | €6.73 Million / yr |
-| **Daily CO2 Avoidance (tCO2e)** | **32.3 tons CO2 / day** | 18.5 tons / day | 45.2 tons / day |
+| **Daily Net Cost Savings (€)** | **€5,981.71 / day** (3.77%) | €1,621.92 / day | €24,252.05 / day |
+| **SAVINGS PER METRIC TON (€/ton)** | **€5.46 / metric ton** | **€1.48 / ton** | **€22.13 / ton** |
+| **Annualized EBITDA Impact (€/yr)** | **€2.18 Million / year** | €0.59 Million / yr | €8.85 Million / yr |
+| **Daily CO2 Avoidance (tCO2e)** | **38.12 tons CO2 / day** | 18.5 tons / day | 52.4 tons / day |
 
 ---
 
@@ -107,7 +107,7 @@ streamlit run src/app.py
 In compliance with scorecard evaluation criteria:
 * **AI Model & Reasoning**: Gemini 3.6 Flash (High) via Antigravity Agentic AI.
 * **Optimization Engine**: Mixed-Integer Linear Programming (MILP) formulated in Python using `PuLP` (CBC solver).
-* **Telemetry Sanitation**: `data_validator.py` with missing value linear interpolation and load bound clipping.
-* **Sensitivity Engine**: `sensitivity_engine.py` performing 25-point Monte Carlo grid search across gas, carbon tax, and spot price volatility.
+* **Telemetry Sanitation**: `src/data_validator.py` with missing value linear interpolation and load bound clipping.
+* **Sensitivity Engine**: `src/sensitivity_engine.py` performing 100-point Monte Carlo grid search across gas, carbon tax, and spot price volatility.
 * **Visualization & UX**: `Streamlit` and `Plotly` dark-mode interface (`src/app.py`).
 * **CI/CD & Version Control**: `Git` with structured commit logging and GitHub Actions workflow automation (`.github/workflows/ci.yml`).

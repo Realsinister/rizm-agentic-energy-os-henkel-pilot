@@ -20,7 +20,7 @@ Crucially, this solution is not designed as a static, one-off spreadsheet calcul
 
 ## 2. Grounded Data-Driven Energy Business Use Cases (Measured in €/ton)
 
-To maximize financial and ecological yield, we identified three candidate use cases, shortlisted them based on load-bearing impact, and expressed all outcomes in **€ / metric ton** of finished detergent produced ($Q_{\text{daily}} = \frac{400,000 \text{ tons}}{365 \text{ days}} = 1,095.89 \text{ tons/day}$).
+To maximize financial and ecological yield, we identified candidate use cases, shortlisted them based on load-bearing impact, and expressed all outcomes in **€ / metric ton** of finished detergent produced ($Q_{\text{daily}} = \frac{400,000 \text{ tons}}{365 \text{ days}} = 1,095.89 \text{ tons/day}$).
 
 ```
 +---------------------------------------------------------------------------------------------------+
@@ -28,11 +28,11 @@ To maximize financial and ecological yield, we identified three candidate use ca
 +--------------------------+-----------------------+--------------------+---------------------------+
 | Candidate Use Case       | Financial Potential   | Feasibility/Data   | Shortlist Status & Metric |
 +--------------------------+-----------------------+--------------------+---------------------------+
-| 1. Dynamic Spark-Spread  | HIGH (€8.5k–15k/day)  | Immediate (Spot    | SHORTLISTED (#1 Core)     |
-|    & Grid Arbitrage      |                       | + On-site CHP)     | Target: €10.82 / ton      |
+| 1. Dynamic Spark-Spread  | HIGH (€4.5k–9k/day)   | Immediate (Spot    | SHORTLISTED (#1 Core)     |
+|    & Grid Arbitrage      |                       | + On-site CHP)     | Target: €3.85 / ton       |
 +--------------------------+-----------------------+--------------------+---------------------------+
-| 2. District Heat Storage | HIGH (€3.0k–6.5k/day) | High (Stadtwerke   | SHORTLISTED (#2 Core)     |
-|    Decoupling Arbitrage  |                       | 3.6 km grid link)  | Target: €4.60 / ton       |
+| 2. District Heat Storage | HIGH (€1.5k–3.5k/day) | High (Stadtwerke   | SHORTLISTED (#2 Core)     |
+|    Decoupling Arbitrage  |                       | 3.6 km grid link)  | Target: €1.61 / ton       |
 +--------------------------+-----------------------+--------------------+---------------------------+
 | 3. Long-term Hydrogen/   | VERY HIGH (Multi-M€)  | LOW (Requires 3-5  | CUT FROM PILOT SHORTLIST  |
 |    CapEx Decarbonization |                       | year CapEx spend)  | (Focus on OpEx first)     |
@@ -47,20 +47,16 @@ To maximize financial and ecological yield, we identified three candidate use ca
   - **During Solar Crash (11:30–15:30)**: Sample Energy OS automatically throttles the CHP down to its minimum stable load (20 MW) and imports grid electricity at negative/near-zero prices to power plant loads.
   - **During Peak Hours (07:30–09:30 & 18:00–21:00)**: Sample Energy OS ramps the CHP to maximum output (up to 84 MW), offsetting expensive grid purchases and exporting power.
 * **Back-of-the-Envelope €/ton Math**:
-  $$\text{Daily Baseline OpEx} = €74,210 / \text{day}$$
-  $$\text{Daily Optimized OpEx} = €62,350 / \text{day}$$
-  $$\text{Daily Net Savings} = €11,860 / \text{day}$$
-  $$\mathbf{\text{Savings per Ton}} = \frac{€11,860 \text{ savings/day}}{1,095.89 \text{ tons/day}} = \mathbf{€10.82 \text{ / metric ton of product}}$$
+  $$\text{Daily Baseline OpEx} = €158,694.86 / \text{day}$$
+  $$\text{Daily Optimized OpEx} = €152,713.16 / \text{day}$$
+  $$\text{Daily Net Savings} = €5,981.71 / \text{day}$$
+  $$\mathbf{\text{Savings per Ton}} = \frac{€5,981.71 \text{ savings/day}}{1,095.89 \text{ tons/day}} = \mathbf{€5.46 \text{ / metric ton of product}}$$
 
 ---
 
 ### Core Use Case 2: Multi-Asset District Heat Storage Arbitrage
 * **Mechanism**: Thermally decoupling CHP electricity generation from real-time spray-drying process heat using the 700 m² Stadtwerke Düsseldorf waste-heat recovery system.
 * **Operational Logic**: When EPEX spot electricity prices peak, the system signals the CHP to run at full 84 MW electrical capacity. The excess thermal output ($84 \text{ MWe} \times 1.2 \text{ HTP} = 100.8 \text{ MWt}$) exceeds spray-drying demand (60 MWt). Instead of dumping heat or throttling the turbine, the engine routes up to 30 MWt of high-temperature heat into the Garath/Benrath district heating network at €28/MWh therm feed-in revenue.
-* **Back-of-the-Envelope €/ton Math**:
-  $$\text{Thermal Export Volume} = 30 \text{ MWt} \times 6 \text{ peak hours} = 180 \text{ MWht/day}$$
-  $$\text{Daily Export Revenue Offset} = 180 \text{ MWht} \times €28/\text{MWht} = €5,040 / \text{day}$$
-  $$\mathbf{\text{Savings per Ton}} = \frac{€5,040 \text{ revenue/day}}{1,095.89 \text{ tons/day}} = \mathbf{€4.60 \text{ / metric ton of product}}$$
 
 ---
 
@@ -93,15 +89,15 @@ When stepping on-site at Holthausen for our initial 1-day audit, asking for "all
 
 ## 4. Multi-Variable Sensitivity Analysis & Confidence Bounds
 
-To ensure our figures are mathematically resilient under extreme market volatility, we executed a 25-scenario Monte Carlo grid search across gas prices (€25–€60/MWh), carbon shadow prices (€50–€140/tCO2e), and spot price volatility (0.8x–1.5x):
+To ensure our figures are mathematically resilient under extreme market volatility, we executed a 100-scenario Monte Carlo grid search across gas prices (€25–€60/MWh), carbon shadow prices (€50–€140/tCO2e), and spot price volatility (0.8x–1.5x):
 
-| Scenario Parameter | P10 (Pessimistic) | Base Case | P90 (Optimistic) |
-|---|---|---|---|
-| **Gas Price (€/MWh therm)** | €60.00 / MWh | €40.00 / MWh | €25.00 / MWh |
-| **Carbon Shadow Price (€/tCO2)** | €50.00 / tCO2 | €85.00 / tCO2 | €140.00 / tCO2 |
-| **Daily Savings (€/day)** | €4,120.50 / day | €11,860.00 / day | €18,450.00 / day |
-| **SAVINGS PER TON (€/ton)** | **€3.76 / ton** | **€10.82 / ton** | **€16.84 / ton** |
-| **Annualized EBITDA Savings** | **€1.50 Million/yr** | **€4.33 Million/yr** | **€6.73 Million/yr** |
+| Scenario Parameter | P10 (Pessimistic) | Base Case (Default) | P90 (Optimistic) | Mean Across Scenarios |
+|---|---|---|---|---|
+| **Gas Price (€/MWh therm)** | €60.00 / MWh | €40.00 / MWh | €25.00 / MWh | Varied Grid |
+| **Carbon Shadow Price (€/tCO2)** | €50.00 / tCO2 | €85.00 / tCO2 | €140.00 / tCO2 | Varied Grid |
+| **Daily Savings (€/day)** | €1,621.92 / day | €5,981.71 / day | €24,252.05 / day | €10,026.17 / day |
+| **SAVINGS PER TON (€/ton)** | **€1.48 / ton** | **€5.46 / ton** | **€22.13 / ton** | **€9.15 / ton** |
+| **Annualized EBITDA Savings** | **€0.59 Million/yr** | **€2.18 Million/yr** | **€8.85 Million/yr** | **€3.66 Million/yr** |
 
 ---
 
@@ -144,6 +140,6 @@ In compliance with scorecard evaluation criteria:
 * **AI Model & Reasoning**: Gemini 3.6 Flash (High) via Antigravity Agentic AI.
 * **Optimization Engine**: Mixed-Integer Linear Programming (MILP) formulated in Python using `PuLP` (CBC solver).
 * **Telemetry Sanitation**: `src/data_validator.py` with missing value linear interpolation and load bound clipping.
-* **Sensitivity Engine**: `src/sensitivity_engine.py` performing 25-point Monte Carlo grid search across gas, carbon tax, and spot price volatility.
+* **Sensitivity Engine**: `src/sensitivity_engine.py` performing 100-point Monte Carlo grid search across gas, carbon tax, and spot price volatility.
 * **Visualization & UX**: `Streamlit` and `Plotly` dark-mode interface (`src/app.py`).
-* **CI/CD & Version Control**: `Git` with structured commit logging and GitHub Actions workflow automation (`.github/workflows/ci.yml`).
+* **CI/CD & Version Control**: `Git` with structured commit logging and GitHub Actions workflow automation.
