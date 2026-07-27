@@ -74,41 +74,39 @@ st.sidebar.header("🎛️ Executive Scenario Controls")
 st.sidebar.markdown("Modulate market parameters to evaluate real-time EBITDA and **€/ton** sensitivities.")
 
 # Session State Initialization for Parameters
-if "gas_price" not in st.session_state:
-    st.session_state.gas_price = 40.0
-if "carbon_tax" not in st.session_state:
-    st.session_state.carbon_tax = 85.0
-if "dh_tariff" not in st.session_state:
-    st.session_state.dh_tariff = 28.0
-if "spot_volatility" not in st.session_state:
-    st.session_state.spot_volatility = 1.0
+if "gas_price_slider" not in st.session_state:
+    st.session_state["gas_price_slider"] = 40.0
+if "carbon_tax_slider" not in st.session_state:
+    st.session_state["carbon_tax_slider"] = 85.0
+if "dh_tariff_slider" not in st.session_state:
+    st.session_state["dh_tariff_slider"] = 28.0
+if "spot_volatility_slider" not in st.session_state:
+    st.session_state["spot_volatility_slider"] = 1.0
 
 def reset_parameters():
-    st.session_state.gas_price = 40.0
-    st.session_state.carbon_tax = 85.0
-    st.session_state.dh_tariff = 28.0
-    st.session_state.spot_volatility = 1.0
+    st.session_state["gas_price_slider"] = 40.0
+    st.session_state["carbon_tax_slider"] = 85.0
+    st.session_state["dh_tariff_slider"] = 28.0
+    st.session_state["spot_volatility_slider"] = 1.0
 
 # 🔄 Reload / Reset Parameters Button
-if st.sidebar.button("🔄 Reset to Default Parameters", use_container_width=True):
-    reset_parameters()
-    st.rerun()
+st.sidebar.button("🔄 Reset to Default Parameters", on_click=reset_parameters, use_container_width=True)
 
 gas_price = st.sidebar.slider(
     "Natural Gas Price (€/MWh therm)", 
-    min_value=20.0, max_value=80.0, value=st.session_state.gas_price, step=2.5, key="gas_price_slider"
+    min_value=20.0, max_value=80.0, step=2.5, key="gas_price_slider"
 )
 carbon_tax = st.sidebar.slider(
     "EUA Carbon Penalty (€/tCO2e)", 
-    min_value=30.0, max_value=150.0, value=st.session_state.carbon_tax, step=5.0, key="carbon_tax_slider"
+    min_value=30.0, max_value=150.0, step=5.0, key="carbon_tax_slider"
 )
 dh_tariff = st.sidebar.slider(
     "District Heat Export Revenue (€/MWh)", 
-    min_value=10.0, max_value=50.0, value=st.session_state.dh_tariff, step=1.0, key="dh_tariff_slider"
+    min_value=10.0, max_value=50.0, step=1.0, key="dh_tariff_slider"
 )
 spot_volatility = st.sidebar.slider(
     "EPEX Spot Price Volatility Multiplier", 
-    min_value=0.5, max_value=2.5, value=st.session_state.spot_volatility, step=0.1, key="spot_volatility_slider"
+    min_value=0.5, max_value=2.5, step=0.1, key="spot_volatility_slider"
 )
 
 st.sidebar.markdown("---")
