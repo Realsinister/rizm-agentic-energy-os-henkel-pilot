@@ -18,7 +18,7 @@
             --accent-orange: #FF9E00;
             --text-primary: #FFFFFF;
             --text-secondary: #8B949E;
-            --border-glow: rgba(0, 240, 118, 0.3);
+            --border-glow: rgba(0, 240, 118, 0.35);
             --border-subtle: #1F2937;
         }
 
@@ -44,7 +44,7 @@
         }
 
         .container {
-            max-width: 1280px;
+            max-width: 1320px;
             margin: 0 auto;
             padding: 30px 20px;
         }
@@ -52,7 +52,7 @@
         /* HEADER HERO */
         header {
             text-align: center;
-            padding: 40px 20px 20px;
+            padding: 30px 20px 10px;
         }
 
         .layout-switcher-banner {
@@ -65,6 +65,8 @@
             gap: 14px;
             margin-bottom: 20px;
             font-size: 0.85rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .switcher-link {
@@ -83,25 +85,25 @@
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             font-weight: 800;
             background: linear-gradient(135deg, #FFFFFF 0%, #8B949E 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .hero-sub {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--accent-cyan);
             max-width: 800px;
-            margin: 0 auto 30px;
+            margin: 0 auto 25px;
         }
 
         /* MAIN FLOWCHART LAYOUT */
         .flowchart-wrapper {
             display: grid;
-            grid-template-columns: 1fr 420px;
+            grid-template-columns: 1fr 440px;
             gap: 30px;
             align-items: start;
         }
@@ -111,8 +113,8 @@
             background: var(--bg-card);
             border: 1px solid var(--border-subtle);
             border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 24px;
+            padding: 22px;
+            margin-bottom: 20px;
             position: relative;
             transition: all 0.3s ease;
         }
@@ -125,9 +127,9 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 18px;
+            margin-bottom: 16px;
             border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 12px;
+            padding-bottom: 10px;
         }
 
         .stage-num {
@@ -144,7 +146,7 @@
         }
 
         .stage-title {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-primary);
         }
@@ -175,8 +177,8 @@
 
         .node-card.active {
             border-color: var(--accent-neon);
-            background: rgba(0, 240, 118, 0.08);
-            box-shadow: 0 0 20px rgba(0, 240, 118, 0.2);
+            background: rgba(0, 240, 118, 0.12);
+            box-shadow: 0 0 20px rgba(0, 240, 118, 0.25);
         }
 
         .node-badge {
@@ -201,9 +203,9 @@
 
         .node-arrow {
             text-align: center;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--accent-neon);
-            margin: 10px 0;
+            margin: 8px 0;
             animation: bounce 2s infinite;
         }
 
@@ -212,15 +214,32 @@
             50% { transform: translateY(4px); }
         }
 
-        /* SIDE INSPECTION PANEL */
-        .inspector-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--accent-neon);
-            border-radius: 20px;
-            padding: 28px;
+        /* FIXED VIEWPORT-FLOATING INSPECTOR PANEL */
+        .inspector-sticky-wrapper {
             position: sticky;
-            top: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px var(--border-glow);
+            top: 24px;
+            z-index: 100;
+        }
+
+        .inspector-panel {
+            background: rgba(13, 19, 28, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid var(--accent-neon);
+            border-radius: 20px;
+            padding: 26px;
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px var(--border-glow);
+            transition: all 0.3s ease;
+        }
+
+        .inspector-panel.updated {
+            animation: pulseGlow 0.4s ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { border-color: var(--accent-cyan); box-shadow: 0 0 40px rgba(0, 210, 255, 0.5); }
+            100% { border-color: var(--accent-neon); box-shadow: 0 0 30px var(--border-glow); }
         }
 
         .inspect-badge {
@@ -236,7 +255,7 @@
         }
 
         .inspect-title {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 10px;
@@ -270,6 +289,7 @@
             color: var(--accent-neon);
             overflow-x: auto;
             margin-bottom: 16px;
+            white-space: pre-wrap;
         }
 
         footer {
@@ -281,9 +301,19 @@
             margin-top: 50px;
         }
 
-        @media (max-width: 950px) {
+        @media (max-width: 1024px) {
             .flowchart-wrapper { grid-template-columns: 1fr; }
-            .inspector-panel { position: static; }
+            .inspector-sticky-wrapper {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                top: auto;
+                z-index: 1000;
+            }
+            .inspector-panel {
+                max-height: 380px;
+            }
         }
     </style>
 </head>
@@ -294,11 +324,11 @@
         <div class="layout-switcher-banner">
             <span>🔀 Layout Version Comparison:</span>
             <a href="index.html" class="switcher-link">Switch to Version A (Pitch Deck UI)</a>
-            <span style="color: var(--accent-neon); font-weight:700;">Active: Version B (Interactive Flowchart)</span>
+            <span style="color: var(--accent-neon); font-weight:700;">Active: Version B (Fixed Inspector Flowchart)</span>
         </div>
 
-        <h1>Sample Energy OS — Interactive Methodology Flowchart</h1>
-        <p class="hero-sub">Visual Step-by-Step Architecture & Challenge Solution Inspector | Henkel Düsseldorf Pilot</p>
+        <h1>Sample Energy OS — Interactive Flowchart</h1>
+        <p class="hero-sub">Click any stage node below to instantly inspect the challenge answers, SSoT laws, and MILP math in the fixed viewport dock.</p>
     </header>
 
     <div class="container">
@@ -442,8 +472,8 @@
 
             </div>
 
-            <!-- RIGHT COLUMN: INTERACTIVE NODE INSPECTOR -->
-            <div>
+            <!-- RIGHT COLUMN: FIXED VIEWPORT-STICKY DOCK INSPECTOR -->
+            <div class="inspector-sticky-wrapper">
                 <div class="inspector-panel" id="inspectPanel">
                     <div class="inspect-badge" id="inspBadge">STAGE 1.1 NODE</div>
                     <div class="inspect-title" id="inspTitle">Henkel Düsseldorf Plant SLA</div>
@@ -593,6 +623,11 @@ Normalized Unit Metric (€/ton) = €5,981.71 / 1,095.89 tons = €5.46 / ton
 
             const data = nodeData[nodeKey];
             if (data) {
+                const panel = document.getElementById('inspectPanel');
+                panel.classList.remove('updated');
+                void panel.offsetWidth; // trigger reflow
+                panel.classList.add('updated');
+
                 document.getElementById('inspBadge').innerText = data.badge;
                 document.getElementById('inspTitle').innerText = data.title;
                 document.getElementById('inspQuestion').innerText = data.question;
