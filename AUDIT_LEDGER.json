@@ -1,0 +1,50 @@
+{
+  "site_info": {
+    "company_name": "Henkel AG & Co. KGaA",
+    "site_location": "D\u00fcsseldorf-Holthausen Headquarters",
+    "annual_production_metric_tons": 400000.0,
+    "primary_product_category": "Laundry & Home Care / Industrial Adhesives",
+    "operating_days_per_year": 365
+  },
+  "parameters_used": {
+    "P_chp_max": 84.0,
+    "P_chp_min": 20.0,
+    "eta_htp": 1.2,
+    "eta_elec": 0.42,
+    "eta_boiler": 0.9,
+    "C_gas": 40.0,
+    "C_boiler": 55.0,
+    "R_dh": 28.0,
+    "sigma_gas": 0.202,
+    "C_co2": 85.0,
+    "Q_daily": 1095.890410958904
+  },
+  "validation_report": {
+    "initial_rows": 96,
+    "missing_values_repaired": 0,
+    "anomalies_clipped": 0,
+    "is_valid": true,
+    "warnings": [],
+    "final_rows": 96
+  },
+  "optimization_summary": {
+    "Baseline_Daily_Cost_EUR": 158694.86,
+    "Optimized_Daily_Cost_EUR": 152713.16,
+    "Daily_Savings_EUR": 5981.71,
+    "Savings_Percent": 3.77,
+    "Savings_EUR_per_Ton": 5.46,
+    "Baseline_CO2_Tons": 552.28,
+    "Optimized_CO2_Tons": 514.16,
+    "CO2_Reduction_Tons": 38.12,
+    "Annualized_Savings_EUR": 2183323.86
+  },
+  "sensitivity_confidence_bounds": {
+    "min_savings_eur_per_ton": 0.53,
+    "max_savings_eur_per_ton": 41.68,
+    "mean_savings_eur_per_ton": 9.15,
+    "median_savings_eur_per_ton": 5.59,
+    "p10_confidence_bound": 1.48,
+    "p90_confidence_bound": 22.13,
+    "mean_annualized_savings_eur": 3659555.37
+  }
+}

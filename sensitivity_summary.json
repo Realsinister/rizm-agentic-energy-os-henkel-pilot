@@ -1,0 +1,9 @@
+{
+  "min_savings_eur_per_ton": 0.53,
+  "max_savings_eur_per_ton": 41.68,
+  "mean_savings_eur_per_ton": 9.15,
+  "median_savings_eur_per_ton": 5.59,
+  "p10_confidence_bound": 1.48,
+  "p90_confidence_bound": 22.13,
+  "mean_annualized_savings_eur": 3659555.37
+}

@@ -1,0 +1,40 @@
+{
+  "site_metadata": {
+    "company_name": "Henkel AG & Co. KGaA",
+    "site_location": "Düsseldorf-Holthausen Headquarters",
+    "annual_production_metric_tons": 400000.0,
+    "primary_product_category": "Laundry & Home Care / Industrial Adhesives",
+    "operating_days_per_year": 365
+  },
+  "generation_assets": {
+    "chp_plant": {
+      "name": "Captive Gas-Fired CHP Turbine",
+      "p_max_mw": 84.0,
+      "p_min_mw": 20.0,
+      "heat_to_power_ratio": 1.20,
+      "electrical_efficiency": 0.42
+    },
+    "auxiliary_boiler": {
+      "name": "Peak Industrial Gas Boiler",
+      "thermal_efficiency": 0.90
+    }
+  },
+  "industrial_demands": {
+    "electrical_baseload_mw": 45.0,
+    "thermal_baseload_mwt": 60.0,
+    "spray_drying_towers_count": 4
+  },
+  "thermal_export_network": {
+    "partner_utility": "Stadtwerke Düsseldorf / Bilfinger",
+    "connected_districts": ["Garath", "Benrath", "Holthausen"],
+    "max_export_capacity_mwt": 30.0,
+    "export_tariff_eur_per_mwh": 28.0
+  },
+  "market_economics": {
+    "natural_gas_price_eur_per_mwh": 40.0,
+    "auxiliary_boiler_fuel_price_eur_per_mwh": 55.0,
+    "natural_gas_emission_factor_tco2_per_mwh": 0.202,
+    "carbon_eua_shadow_price_eur_per_tco2": 85.0,
+    "time_interval_hours": 0.25
+  }
+}
