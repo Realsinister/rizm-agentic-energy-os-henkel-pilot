@@ -1,6 +1,6 @@
 """
-RIZM Agentic Energy OS — Master Reusable CLI Engine
-Unified operational interface for Forward Deployed AI Energy Engineers.
+Sample Energy OS — Master Reusable CLI Engine
+Unified operational interface for Forward Deployed Energy Engineers.
 Supports multi-site onboarding, telemetry validation, MILP optimization, and sensitivity audits.
 """
 
@@ -32,7 +32,7 @@ def run_site_pipeline(config_path: str, run_sensitivity: bool = False, export_au
     Executes end-to-end site evaluation workflow.
     """
     print(f"\n==================================================================")
-    print(f"RIZM AGENTIC ENERGY OS | ENTERPRISE SITE ONBOARDING ENGINE")
+    print(f"SAMPLE ENERGY OS | ENTERPRISE SITE ONBOARDING ENGINE")
     print(f"==================================================================")
     
     # 1. Load Configuration
@@ -102,12 +102,12 @@ def run_site_pipeline(config_path: str, run_sensitivity: bool = False, export_au
         print(f"      Saved audit trail ledger to 'AUDIT_LEDGER.json'")
         
     print(f"\n==================================================================")
-    print(f"RIZM SITE ONBOARDING COMPLETE. READY FOR CLIENT PRESENTATION.")
+    print(f"SITE ONBOARDING COMPLETE. READY FOR CLIENT PRESENTATION.")
     print(f"==================================================================\n")
     return summary
 
 def main():
-    parser = argparse.ArgumentParser(description="RIZM Agentic Energy OS CLI Tool")
+    parser = argparse.ArgumentParser(description="Sample Energy OS CLI Tool")
     parser.add_argument("--config", type=str, default="site_config.json", help="Path to site configuration JSON file")
     parser.add_argument("--run-sensitivity", action="store_true", help="Execute multi-variable sensitivity analysis sweep")
     parser.add_argument("--export-audit", action="store_true", default=True, help="Export verifiable AUDIT_LEDGER.json file")

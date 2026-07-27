@@ -1,12 +1,12 @@
 # System Architecture & Single Source of Truth (SSOT)
-## RIZM Agentic Energy OS — Henkel Düsseldorf Pilot
+## Sample Energy OS — Henkel Düsseldorf Pilot
 
 ---
 
 ### 1. Executive Context & Ground-Truth Facility Profile
 * **Target Facility**: Henkel AG & Co. KGaA — Global Headquarters & Manufacturing Site, Düsseldorf-Holthausen.
 * **Annual Output**: ~400,000 metric tons of Laundry & Home Care / Adhesive / Industrial products.
-* **Primary Generation Asset**: On-site 84 MW gas-fired Combined Heat & Power (CHP) power station.
+* **Primary Generation Asset**: On-site 84 MW captive gas-fired Combined Heat & Power (CHP) power station.
 * **Thermal Infrastructure**: Spray-drying towers (heavy constant baseload), plus a 700 m² waste-heat recovery center connected to a 3.6 km district heating pipeline supplying municipal heat to Garath, Benrath, and Holthausen (cooperation with Stadtwerke Düsseldorf & Bilfinger).
 * **Sustainability & Emissions**: CO2 reduction commitment of ~6,500 tons/yr via district heat integration; goal of net-zero production impact.
 

@@ -1,4 +1,4 @@
-name: RIZM Agentic Energy OS CI/CD Pipeline
+name: Sample Energy OS CI/CD Pipeline
 
 on:
   push:
@@ -28,9 +28,9 @@ jobs:
       run: |
         pytest test_suite.py -v
 
-    - name: Execute Full RIZM Site Pipeline & Audit Export
+    - name: Execute Full Site Pipeline & Audit Export
       run: |
-        python rizm_agentic_os.py --config site_config.json --run-sensitivity --export-audit
+        python sample_energy_os.py --config site_config.json --run-sensitivity --export-audit
 
     - name: Verify Audit Ledger Artifact
       run: |

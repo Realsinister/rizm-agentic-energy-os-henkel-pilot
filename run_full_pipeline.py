@@ -1,5 +1,5 @@
 """
-Master Automated Pipeline Orchestrator for RIZM Energy OS.
+Master Automated Pipeline Orchestrator for Sample Energy OS.
 Executes data generation, validation, optimization, sensitivity sweeps, unit tests, and audit logging.
 """
 
@@ -20,7 +20,7 @@ def run_command(command: str) -> bool:
 
 def main():
     print("==================================================================")
-    print("RIZM AGENTIC ENERGY OS -- FULL AUTOMATED PIPELINE EXECUTION")
+    print("SAMPLE ENERGY OS -- FULL AUTOMATED PIPELINE EXECUTION")
     print("==================================================================")
     
     # Step 1: Run Unit Test Verification Suite
@@ -29,9 +29,9 @@ def main():
         print("PIPELINE FAILED AT STEP 1 (Unit Tests Failed)")
         sys.exit(1)
         
-    # Step 2: Run Reusable RIZM Agentic OS CLI Pipeline with Sensitivity Sweep
-    print("\n---> STEP 2: Running RIZM Agentic OS CLI Site Pipeline & Sensitivity Engine")
-    if not run_command("python rizm_agentic_os.py --config site_config.json --run-sensitivity"):
+    # Step 2: Run Reusable CLI Pipeline with Sensitivity Sweep
+    print("\n---> STEP 2: Running Sample Energy OS CLI Site Pipeline & Sensitivity Engine")
+    if not run_command("python sample_energy_os.py --config site_config.json --run-sensitivity"):
         print("PIPELINE FAILED AT STEP 2 (CLI Execution Failed)")
         sys.exit(1)
         

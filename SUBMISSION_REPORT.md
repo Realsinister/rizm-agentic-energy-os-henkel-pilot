@@ -1,4 +1,4 @@
-# Executive Challenge Deliverable: RIZM Agentic Energy OS — Henkel Düsseldorf Pilot
+# Executive Challenge Deliverable: Sample Energy OS — Henkel Düsseldorf Pilot
 
 **Applicant**: Yash G.  
 **Role**: Forward Deployed AI Energy Engineer  
@@ -14,7 +14,7 @@ When entering Henkel’s Düsseldorf-Holthausen headquarters site—producing ~4
 2. **Thermal Load Engine**: High-temperature spray-drying towers (evaporating detergent slurry into powder baseline load) requiring ~60 MWt process steam.
 3. **Thermal Export & Storage Link**: A 700 m² waste-heat energy center built directly on-site in partnership with **Stadtwerke Düsseldorf** and **Bilfinger** (commissioned April 2026), feeding excess thermal energy via a 3.6 km pipeline into the municipal district heating grid serving Garath, Benrath, and Holthausen (reducing ~6,500 tCO2e/yr).
 
-Crucially, as a **Forward Deployed AI Energy Engineer at RIZM**, this solution is not designed as a static, one-off spreadsheet calculation. Instead, it is implemented as a **fail-proof, modular Enterprise Software Engine (`rizm_agentic_os.py`)** capable of ingesting raw telemetry data, executing data quality validation, running deterministic MILP optimization, performing multi-variable sensitivity sweeps, and producing audit ledgers for *any* industrial facility across the DAX-40 index.
+Crucially, this solution is not designed as a static, one-off spreadsheet calculation. Instead, it is implemented as a **fail-proof, modular Enterprise Software Engine (`sample_energy_os.py`)** capable of ingesting raw telemetry data, executing data quality validation, running deterministic MILP optimization, performing multi-variable sensitivity sweeps, and producing audit ledgers for *any* industrial facility across the DAX-40 index.
 
 ---
 
@@ -44,11 +44,11 @@ To maximize financial and ecological yield, we identified three candidate use ca
 ### Core Use Case 1: Dynamic Spark-Spread & Solar Crash Grid Arbitrage
 * **Mechanism**: EPEX SPOT day-ahead and intraday markets routinely experience severe mid-day solar price depressions (dropping to -€15 to +€10/MWh) alongside morning/evening peaks (€120–160/MWh). 
 * **Operational Logic**: Rather than running the 84 MW CHP turbine at a static 45 MW baseload rate:
-  - **During Solar Crash (11:30–15:30)**: RIZM Agentic OS automatically throttles the CHP down to its minimum stable load (20 MW) and imports grid electricity at negative/near-zero prices to power plant loads.
-  - **During Peak Hours (07:30–09:30 & 18:00–21:00)**: RIZM ramps the CHP to maximum output (up to 84 MW), offsetting expensive grid purchases and exporting power.
+  - **During Solar Crash (11:30–15:30)**: Sample Energy OS automatically throttles the CHP down to its minimum stable load (20 MW) and imports grid electricity at negative/near-zero prices to power plant loads.
+  - **During Peak Hours (07:30–09:30 & 18:00–21:00)**: Sample Energy OS ramps the CHP to maximum output (up to 84 MW), offsetting expensive grid purchases and exporting power.
 * **Back-of-the-Envelope €/ton Math**:
   $$\text{Daily Baseline OpEx} = €74,210 / \text{day}$$
-  $$\text{Daily RIZM Optimized OpEx} = €62,350 / \text{day}$$
+  $$\text{Daily Optimized OpEx} = €62,350 / \text{day}$$
   $$\text{Daily Net Savings} = €11,860 / \text{day}$$
   $$\mathbf{\text{Savings per Ton}} = \frac{€11,860 \text{ savings/day}}{1,095.89 \text{ tons/day}} = \mathbf{€10.82 \text{ / metric ton of product}}$$
 
@@ -56,7 +56,7 @@ To maximize financial and ecological yield, we identified three candidate use ca
 
 ### Core Use Case 2: Multi-Asset District Heat Storage Arbitrage
 * **Mechanism**: Thermally decoupling CHP electricity generation from real-time spray-drying process heat using the 700 m² Stadtwerke Düsseldorf waste-heat recovery system.
-* **Operational Logic**: When EPEX spot electricity prices peak, RIZM signals the CHP to run at full 84 MW electrical capacity. The excess thermal output ($84 \text{ MWe} \times 1.2 \text{ HTP} = 100.8 \text{ MWt}$) exceeds spray-drying demand (60 MWt). Instead of dumping heat or throttling the turbine, RIZM routes up to 30 MWt of high-temperature heat into the Garath/Benrath district heating network at €28/MWh therm feed-in revenue.
+* **Operational Logic**: When EPEX spot electricity prices peak, the system signals the CHP to run at full 84 MW electrical capacity. The excess thermal output ($84 \text{ MWe} \times 1.2 \text{ HTP} = 100.8 \text{ MWt}$) exceeds spray-drying demand (60 MWt). Instead of dumping heat or throttling the turbine, the engine routes up to 30 MWt of high-temperature heat into the Garath/Benrath district heating network at €28/MWh therm feed-in revenue.
 * **Back-of-the-Envelope €/ton Math**:
   $$\text{Thermal Export Volume} = 30 \text{ MWt} \times 6 \text{ peak hours} = 180 \text{ MWht/day}$$
   $$\text{Daily Export Revenue Offset} = 180 \text{ MWht} \times €28/\text{MWht} = €5,040 / \text{day}$$
@@ -105,7 +105,7 @@ To ensure our figures are mathematically resilient under extreme market volatili
 
 ---
 
-## 5. RIZM Enterprise Reusable Automation Architecture
+## 5. Enterprise Reusable Automation Architecture
 
 To eliminate repeated engineering effort across future DAX-40 client deployments, we implemented an automated software stack:
 
@@ -133,17 +133,17 @@ To eliminate repeated engineering effort across future DAX-40 client deployments
 
 1. **Modular Configuration (`site_config.json`)**: Encapsulates site specifications, asset limits, and tariffs so engineers can onboard new sites by simply updating a JSON schema.
 2. **Fail-Proof Validator (`data_validator.py`)**: Sanitizes incoming telemetry, repairing missing timestamps via linear interpolation and clipping sensor anomalies.
-3. **CLI Engine & Master Pipeline (`rizm_agentic_os.py` & `run_full_pipeline.py`)**: Single CLI execution running end-to-end data validation, MILP solving, sensitivity sweeps, and audit ledger generation.
+3. **CLI Engine & Master Pipeline (`sample_energy_os.py` & `run_full_pipeline.py`)**: Single CLI execution running end-to-end data validation, MILP solving, sensitivity sweeps, and audit ledger generation.
 4. **CI/CD Integration (`.github/workflows/ci.yml`)**: Continuous testing pipeline running unit tests on every commit to ensure zero regressions.
 
 ---
 
 ## 6. Explicit Toolchain Disclosure
 
-In compliance with RIZM scorecard evaluation criteria:
+In compliance with scorecard evaluation criteria:
 * **AI Model & Reasoning**: Gemini 3.6 Flash (High) via Antigravity Agentic AI.
 * **Optimization Engine**: Mixed-Integer Linear Programming (MILP) formulated in Python using `PuLP` (CBC solver).
-* **Data Validation & Analytics**: `pandas`, `numpy`, `data_validator.py`.
-* **Sensitivity & Audit Engine**: `sensitivity_engine.py`, JSON schema verification.
+* **Telemetry Sanitation**: `data_validator.py` with missing value linear interpolation and load bound clipping.
+* **Sensitivity Engine**: `sensitivity_engine.py` performing 25-point Monte Carlo grid search across gas, carbon tax, and spot price volatility.
 * **Visualization & UX**: `Streamlit` and `Plotly` dark-mode interface (`app.py`).
 * **CI/CD & Version Control**: `Git` with structured commit logging and GitHub Actions workflow automation.

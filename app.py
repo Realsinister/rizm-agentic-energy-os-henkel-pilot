@@ -1,5 +1,5 @@
 """
-RIZM Agentic Energy OS — Henkel Düsseldorf Site Pilot
+Sample Energy OS — Henkel Düsseldorf Site Pilot
 Executive Presentation & Interactive Web Dashboard (app.py)
 """
 
@@ -14,7 +14,7 @@ from optimizer import optimize_chp_dispatch, calculate_baseline, DEFAULT_PARAMS
 
 # Page Configuration
 st.set_page_config(
-    page_title="RIZM Agentic OS | Henkel Executive Dashboard",
+    page_title="Sample Energy OS | Henkel Düsseldorf Pilot",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -113,8 +113,8 @@ st.sidebar.markdown("---")
 st.sidebar.caption("🏢 **Facility**: Henkel Düsseldorf-Holthausen\n🏭 **Capacity**: 400,000 metric tons/yr\n⚡ **Primary Asset**: 84 MW Gas CHP Turbine")
 
 # --- Application Header ---
-st.markdown('<div class="main-header">⚡ RIZM Agentic Energy OS</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">Executive Onboarding Dashboard | Henkel Flagship Plant (Düsseldorf-Holthausen)</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-header">⚡ Sample Energy OS</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">Executive Onboarding Dashboard | Henkel Flagship Plant Pilot Sample (Düsseldorf-Holthausen)</div>', unsafe_allow_html=True)
 
 # Ingest & Solve Data
 @st.cache_data
@@ -201,9 +201,9 @@ try:
         with col_b1:
             st.markdown("""
             <div class="callout-box">
-                <h4 style="color: #00E676; margin-top:0;">Why Deploy RIZM Agentic Energy OS at Düsseldorf-Holthausen?</h4>
+                <h4 style="color: #00E676; margin-top:0;">Why Deploy Sample Energy OS at Düsseldorf-Holthausen?</h4>
                 <p>Henkel’s global headquarters site produces <b>400,000 metric tons</b> of Laundry & Home Care and Industrial Adhesives annually. Historically, the plant ran its <b>84 MW captive gas-fired CHP turbine</b> at a static, unoptimized rate to meet constant spray-drying process heat loads.</p>
-                <p>RIZM Agentic Energy OS transforms this physical infrastructure into an <b>algorithmically traded flexibility asset</b>:</p>
+                <p>Sample Energy OS transforms this physical infrastructure into an <b>algorithmically traded flexibility asset</b>:</p>
                 <ul>
                     <li><b>Dynamic Grid Power Arbitrage</b>: Automatically throttles CHP output during mid-day solar price crashes to import cheap/negative grid power.</li>
                     <li><b>District Heat Export Arbitrage</b>: Routes excess CHP thermal output into the 700 m² Stadtwerke Düsseldorf waste-heat network supplying Garath, Benrath, and Holthausen.</li>
@@ -227,7 +227,7 @@ try:
         summary_table_data = {
             "Optimization Dimension": ["Daily Operating Expenditure (€/day)", "Normalized Cost Metric (€/ton)", "Annualized Operating Impact (€/year)", "Daily CO2 Footprint (tCO2e/day)"],
             "Unoptimized Baseline": [f"€{summary['Baseline_Daily_Cost_EUR']:,.2f}", f"€{summary['Baseline_Daily_Cost_EUR']/1095.89:.2f} / ton", f"€{summary['Baseline_Daily_Cost_EUR']*365/1e6:.2f} M / yr", f"{summary['Baseline_CO2_Tons']:.1f} tons/day"],
-            "RIZM Agentic OS Optimized": [f"€{summary['Optimized_Daily_Cost_EUR']:,.2f}", f"€{summary['Optimized_Daily_Cost_EUR']/1095.89:.2f} / ton", f"€{summary['Optimized_Daily_Cost_EUR']*365/1e6:.2f} M / yr", f"{summary['Optimized_CO2_Tons']:.1f} tons/day"],
+            "Sample Energy OS Optimized": [f"€{summary['Optimized_Daily_Cost_EUR']:,.2f}", f"€{summary['Optimized_Daily_Cost_EUR']/1095.89:.2f} / ton", f"€{summary['Optimized_Daily_Cost_EUR']*365/1e6:.2f} M / yr", f"{summary['Optimized_CO2_Tons']:.1f} tons/day"],
             "Net Customer Benefit": [f"€{summary['Daily_Savings_EUR']:,.2f} / day", f"€{summary['Savings_EUR_per_Ton']:.2f} / ton saved", f"€{summary['Annualized_Savings_EUR']/1e6:.2f} M / year", f"{summary['CO2_Reduction_Tons']:.1f} tons CO2/day avoided"]
         }
         st.table(pd.DataFrame(summary_table_data))
@@ -235,7 +235,7 @@ try:
     # === TAB 2: ELECTRICAL ARBITRAGE ===
     with tab2:
         st.subheader("⚡ 1. Dynamic Electrical Dispatch & EPEX Spot Price Arbitrage")
-        st.caption("Demonstrates how RIZM automatically throttles CHP generation during mid-day solar price drops to purchase cheap grid power, and ramps CHP output during peak price windows.")
+        st.caption("Demonstrates how the system automatically throttles CHP generation during mid-day solar price drops to purchase cheap grid power, and ramps CHP output during peak price windows.")
 
         fig_elec = make_subplots(specs=[[{"secondary_y": True}]])
         fig_elec.add_trace(
@@ -264,7 +264,7 @@ try:
 
         st.plotly_chart(fig_elec, use_container_width=True)
 
-        st.info("💡 **Executive Takeaway**: Notice the mid-day window (11:30–15:30) where EPEX spot prices crash due to solar PV over-generation. RIZM automatically throttles the CHP down to its 20 MW min load and imports cheap grid power, eliminating natural gas burn when electricity is cheap.")
+        st.info("💡 **Executive Takeaway**: Notice the mid-day window (11:30–15:30) where EPEX spot prices crash due to solar PV over-generation. The system automatically throttles the CHP down to its 20 MW min load and imports cheap grid power, eliminating natural gas burn when electricity is cheap.")
 
     # === TAB 3: THERMAL DISPATCH ===
     with tab3:
@@ -285,7 +285,7 @@ try:
         )
         st.plotly_chart(fig_therm, use_container_width=True)
 
-        st.success("🔥 **Executive Takeaway**: During peak electricity price windows, RIZM ramps the CHP to max electrical capacity. The excess thermal output is exported via the 700 m² energy center into Stadtwerke Düsseldorf’s heating grid, generating €28/MWh in feed-in revenue.")
+        st.success("🔥 **Executive Takeaway**: During peak electricity price windows, the system ramps the CHP to max electrical capacity. The excess thermal output is exported via the 700 m² energy center into Stadtwerke Düsseldorf’s heating grid, generating €28/MWh in feed-in revenue.")
 
     # === TAB 4: FINANCIAL SAVINGS & DATA EXPORT ===
     with tab4:
@@ -295,7 +295,7 @@ try:
         
         fig_cost = go.Figure()
         fig_cost.add_trace(go.Scatter(x=res_df["Timestamp"], y=df_base["Interval_Cost_EUR"], name="Baseline Cost (€/15-min)", line=dict(color="#EF5350", width=2)))
-        fig_cost.add_trace(go.Scatter(x=res_df["Timestamp"], y=res_df["Interval_Cost_EUR"], name="RIZM Optimized Cost (€/15-min)", line=dict(color="#00E676", width=2)))
+        fig_cost.add_trace(go.Scatter(x=res_df["Timestamp"], y=res_df["Interval_Cost_EUR"], name="Optimized Cost (€/15-min)", line=dict(color="#00E676", width=2)))
 
         fig_cost.update_layout(
             template="plotly_dark",
@@ -309,7 +309,7 @@ try:
         st.dataframe(res_df[["Timestamp", "Spot_Price_EUR_MWh", "Electrical_Demand_MW", "P_chp", "P_grid", "Thermal_Demand_MWt", "H_chp", "H_dh", "Interval_Cost_EUR"]], use_container_width=True)
         
         csv_bytes = res_df.to_csv(index=False).encode('utf-8')
-        st.download_button("📥 Download Full 96-Interval Optimization CSV", data=csv_bytes, file_name="henkel_dusseldorf_rizm_optimization.csv", mime="text/csv")
+        st.download_button("📥 Download Full 96-Interval Optimization CSV", data=csv_bytes, file_name="henkel_dusseldorf_energy_optimization.csv", mime="text/csv")
 
 except Exception as e:
     st.error(f"Optimization Execution Error: {str(e)}")
