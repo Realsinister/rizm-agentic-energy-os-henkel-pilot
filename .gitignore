@@ -13,6 +13,9 @@ env/
 .DS_Store
 Thumbs.db
 
-# Output data & artifacts (keep tracked if necessary, ignore temporary/cache)
+# Test temporary files
+test_profile.csv
+
+# Output data & artifacts
 *.log
 .pytest_cache/
