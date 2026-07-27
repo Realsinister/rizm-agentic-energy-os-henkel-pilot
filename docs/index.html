@@ -273,25 +273,34 @@
 
         .sim-controls {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
             margin-bottom: 30px;
+            align-items: end;
         }
 
         .sim-control-group {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            justify-content: space-between;
+            min-height: 85px;
         }
 
         .sim-control-group label {
             font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-main);
+            margin-bottom: 12px;
+            min-height: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .sim-control-group input[type="range"] {
             accent-color: var(--accent-green);
+            width: 100%;
+            cursor: pointer;
         }
 
         .sim-metrics-grid {
@@ -381,7 +390,8 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .sim-controls { grid-template-columns: 1fr; }
             h1 { font-size: 2.1rem; }
             .hero-sub { font-size: 1.05rem; }
             .flow-step { flex-direction: column; }
@@ -397,7 +407,7 @@
         <p class="hero-sub">Henkel Flagship Headquarters Pilot (Düsseldorf-Holthausen Site) | Market Intelligence & Fail-Proof Optimization Core Engine</p>
         
         <div class="hero-tags">
-            <div class="tag-item">Applicant: <span>Yash G.</span></div>
+            <div class="tag-item">Applicant: <span>Yash Gupta</span></div>
             <div class="tag-item">Target Facility: <span>Henkel AG & Co. KGaA (400k t/a)</span></div>
             <div class="tag-item">Primary Metric: <span>€5.46 / metric ton saved</span></div>
             <div class="tag-item">EBITDA Gain: <span>€2.18 Million / year</span></div>
@@ -538,15 +548,24 @@
             <div class="sim-box">
                 <div class="sim-controls">
                     <div class="sim-control-group">
-                        <label for="gasSlider">Natural Gas Price (€/MWh): <span id="gasVal" style="color: var(--accent-green);">40.0</span> €/MWh</label>
+                        <label for="gasSlider">
+                            <span>Natural Gas Price (€/MWh)</span>
+                            <span style="color: var(--accent-green); font-weight: 700;"><span id="gasVal">40.0</span> €/MWh</span>
+                        </label>
                         <input type="range" id="gasSlider" min="20" max="80" value="40" step="2.5">
                     </div>
                     <div class="sim-control-group">
-                        <label for="prodSlider">Henkel Plant Annual Production (Metric Tons): <span id="prodVal" style="color: var(--accent-blue);">400,000</span> tons</label>
+                        <label for="prodSlider">
+                            <span>Henkel Annual Production (Tons)</span>
+                            <span style="color: var(--accent-blue); font-weight: 700;"><span id="prodVal">400,000</span> tons</span>
+                        </label>
                         <input type="range" id="prodSlider" min="250000" max="600000" value="400000" step="25000">
                     </div>
                     <div class="sim-control-group">
-                        <label for="carbonSlider">EUA Carbon Tax (€/tCO2e): <span id="carbonVal" style="color: var(--accent-purple);">85.0</span> €/tCO2</label>
+                        <label for="carbonSlider">
+                            <span>EUA Carbon Tax (€/tCO2e)</span>
+                            <span style="color: var(--accent-purple); font-weight: 700;"><span id="carbonVal">85.0</span> €/tCO2</span>
+                        </label>
                         <input type="range" id="carbonSlider" min="30" max="150" value="85" step="5">
                     </div>
                 </div>
@@ -651,7 +670,7 @@
     <!-- FOOTER -->
     <footer>
         <p>Sample Energy OS — Henkel Düsseldorf Pilot Strategy & Core Optimization Engine</p>
-        <p style="margin-top: 6px;">Created by <strong>Yash G.</strong> for the RIZM Forward Deployed AI Energy Engineer Hiring Challenge</p>
+        <p style="margin-top: 6px;">Created by <strong>Yash Gupta</strong> for the RIZM Forward Deployed AI Energy Engineer Hiring Challenge</p>
     </footer>
 
     <!-- INTERACTIVE SIMULATOR JAVASCRIPT -->

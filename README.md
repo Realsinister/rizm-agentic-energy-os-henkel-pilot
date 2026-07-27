@@ -1,6 +1,6 @@
 # Sample Energy OS — Henkel Pilot & Enterprise Core Engine
 
-Welcome to the hiring challenge submission for the **Forward Deployed AI Energy Engineer** position, created by **Yash G.**
+Welcome to the hiring challenge submission for the **Forward Deployed AI Energy Engineer** position, created by **Yash Gupta.**
 
 This repository presents a complete, data-driven, and algorithmically grounded pilot strategy for onboarding **Henkel's flagship headquarters plant in Düsseldorf-Holthausen**, alongside an enterprise-grade, fail-proof **Industrial Energy Optimization Core Engine** (`src/sample_energy_os.py`) structured for future DAX-40 client deployments.
 

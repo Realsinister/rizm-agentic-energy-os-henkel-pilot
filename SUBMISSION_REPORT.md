@@ -1,6 +1,6 @@
 # Executive Challenge Deliverable: Sample Energy OS — Henkel Düsseldorf Pilot
 
-**Applicant**: Yash G.  
+**Applicant**: Yash Gupta  
 **Role**: Forward Deployed AI Energy Engineer  
 **Target Facility**: Henkel AG & Co. KGaA — Global Headquarters & Manufacturing Plant (Düsseldorf-Holthausen)  
 **Primary Metric**: Operational Cost Savings Normalized in **€ / metric ton** of finished product.
