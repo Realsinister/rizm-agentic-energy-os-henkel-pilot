@@ -1,4 +1,4 @@
-# Sample Energy OS — Henkel Pilot & Enterprise Core Engine
+# Sample Energy OS - Henkel Pilot & Enterprise Core Engine
 
 Welcome to the hiring challenge submission for the **Forward Deployed AI Energy Engineer** position, created by **Yash G.**
 
