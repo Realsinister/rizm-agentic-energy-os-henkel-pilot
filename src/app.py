@@ -14,7 +14,7 @@ from src.optimizer import optimize_chp_dispatch, calculate_baseline, DEFAULT_PAR
 
 # Page Configuration
 st.set_page_config(
-    page_title="Sample Energy OS | Henkel Düsseldorf Pilot",
+    page_title="Sample Energy OS | Henkel Executive Dashboard",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -189,7 +189,7 @@ try:
         "📊 Executive ROI & Business Case", 
         "⚡ Use Case #1: Solar Price Arbitrage", 
         "🔥 Use Case #2: District Heat Integration", 
-        "📈 Financial Profile & Data Export"
+        "💰 Financial Layer & Data Export"
     ])
 
     # === TAB 1: EXECUTIVE ROI SUMMARY ===
@@ -287,23 +287,72 @@ try:
 
         st.success("🔥 **Executive Takeaway**: During peak electricity price windows, the system ramps the CHP to max electrical capacity. The excess thermal output is exported via the 700 m² energy center into Stadtwerke Düsseldorf’s heating grid, generating €28/MWh in feed-in revenue.")
 
-    # === TAB 4: FINANCIAL SAVINGS & DATA EXPORT ===
+    # === TAB 4: FINANCIAL LAYER & DATA EXPORT ===
     with tab4:
-        st.subheader("📈 3. Interval Operational Savings & Telemetry Data Ledger")
+        st.subheader("💰 3. Financial Layer & Cumulative Cost Trajectory")
+        st.caption("Clear visual breakdown of how daily operational cost savings accumulate hour-by-hour compared to the unoptimized flat baseline.")
         
         _, _, df_base = calculate_baseline(df_raw, custom_params)
         
-        fig_cost = go.Figure()
-        fig_cost.add_trace(go.Scatter(x=res_df["Timestamp"], y=df_base["Interval_Cost_EUR"], name="Baseline Cost (€/15-min)", line=dict(color="#EF5350", width=2)))
-        fig_cost.add_trace(go.Scatter(x=res_df["Timestamp"], y=res_df["Interval_Cost_EUR"], name="Optimized Cost (€/15-min)", line=dict(color="#00E676", width=2)))
+        # Calculate Cumulative Costs & Hourly Savings
+        res_df_copy = res_df.copy()
+        res_df_copy["Baseline_Cumulative_EUR"] = df_base["Interval_Cost_EUR"].cumsum()
+        res_df_copy["Optimized_Cumulative_EUR"] = res_df_copy["Interval_Cost_EUR"].cumsum()
+        res_df_copy["Interval_Savings_EUR"] = df_base["Interval_Cost_EUR"] - res_df_copy["Interval_Cost_EUR"]
+        
+        col_f1, col_f2 = st.columns(2)
 
-        fig_cost.update_layout(
-            template="plotly_dark",
-            height=380,
-            margin=dict(l=20, r=20, t=30, b=20),
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-        )
-        st.plotly_chart(fig_cost, use_container_width=True)
+        with col_f1:
+            st.markdown("##### A. Cumulative Daily Expenditure Trajectory (€)")
+            fig_cum = go.Figure()
+            fig_cum.add_trace(go.Scatter(
+                x=res_df_copy["Timestamp"], y=res_df_copy["Baseline_Cumulative_EUR"], 
+                name="Baseline Cumulative Cost (€)", line=dict(color="#EF5350", width=2.5, dash="dash")
+            ))
+            fig_cum.add_trace(go.Scatter(
+                x=res_df_copy["Timestamp"], y=res_df_copy["Optimized_Cumulative_EUR"], 
+                name="Sample Energy OS Cumulative Cost (€)", line=dict(color="#00E676", width=3),
+                fill="tonexty", fillcolor="rgba(0, 230, 118, 0.15)"
+            ))
+            fig_cum.update_layout(
+                template="plotly_dark", height=360, margin=dict(l=20, r=20, t=30, b=20),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+            )
+            fig_cum.update_yaxes(title_text="Cumulative Cost (€)")
+            st.plotly_chart(fig_cum, use_container_width=True)
+
+        with col_f2:
+            st.markdown("##### B. Hourly Financial Savings Rate (€/hour Saved)")
+            # Group by 1-hour windows for clear presentation
+            res_df_copy["Timestamp_dt"] = pd.to_datetime(res_df_copy["Timestamp"])
+            hourly_savings = res_df_copy.resample('1h', on='Timestamp_dt')["Interval_Savings_EUR"].sum().reset_index()
+            hourly_savings["Hour_Label"] = hourly_savings["Timestamp_dt"].dt.strftime("%H:00")
+
+            fig_hourly = go.Figure()
+            fig_hourly.add_trace(go.Bar(
+                x=hourly_savings["Hour_Label"], y=hourly_savings["Interval_Savings_EUR"],
+                name="Net Savings (€/hr)", marker_color="#29B6F6"
+            ))
+            fig_hourly.update_layout(
+                template="plotly_dark", height=360, margin=dict(l=20, r=20, t=30, b=20),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+            )
+            fig_hourly.update_yaxes(title_text="Net Cost Savings (€/hour)")
+            st.plotly_chart(fig_hourly, use_container_width=True)
+
+        # C-Suite Executive Financial Layer Briefing Callout
+        st.markdown(f"""
+        <div style="background-color: #1A2530; border-left: 5px solid #00E676; border-radius: 10px; padding: 20px; margin-top: 15px; margin-bottom: 25px;">
+            <h4 style="color: #00E676; margin-top:0; font-size: 1.15rem;">💰 Executive Financial Layer Takeaway (Henkel Leadership Brief)</h4>
+            <p style="font-size: 0.95rem; color: #ECEFF1; margin-bottom: 10px;">Implementing Sample Energy OS at Henkel Düsseldorf delivers four core financial advantages for executive stakeholders:</p>
+            <ul style="font-size: 0.9rem; color: #CFD8DC; line-height: 1.6; margin-bottom: 0;">
+                <li><b>Direct EBITDA Impact</b>: Generates <b>€{summary['Daily_Savings_EUR']:,.2f} in daily operational savings</b>, delivering a projected <b>€{summary['Annualized_Savings_EUR']/1e6:.2f} Million / year</b> direct contribution to plant EBITDA.</li>
+                <li><b>Unit COGS Reduction</b>: Decreases energy overhead by <b>€{summary['Savings_EUR_per_Ton']:.2f} per metric ton</b> of finished product, directly improving detergent gross profit margins.</li>
+                <li><b>Peak Volatility Hedging</b>: Captures mid-day solar price crashes (saving up to €750+/hour during 11:30–15:30 solar depressions) while eliminating peak grid exposure.</li>
+                <li><b>Zero-CapEx Deployment</b>: Requires zero capital expenditure — algorithmically monetizes existing physical assets (84 MW CHP + Stadtwerke Düsseldorf heat exchangers).</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
         st.subheader("📋 4. Full 96-Interval Telemetry Ledger")
         st.dataframe(res_df[["Timestamp", "Spot_Price_EUR_MWh", "Electrical_Demand_MW", "P_chp", "P_grid", "Thermal_Demand_MWt", "H_chp", "H_dh", "Interval_Cost_EUR"]], use_container_width=True)
