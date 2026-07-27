@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Energy OS — Interactive Flowchart & Methodology Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #06090E;
+            --bg-card: #0D131C;
+            --bg-card-hover: #141D2B;
+            --accent-neon: #00F076;
+            --accent-cyan: #00D2FF;
+            --accent-purple: #9D4EDD;
+            --accent-orange: #FF9E00;
+            --text-primary: #FFFFFF;
+            --text-secondary: #8B949E;
+            --border-glow: rgba(0, 240, 118, 0.3);
+            --border-subtle: #1F2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.5;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(0, 240, 118, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 210, 255, 0.04) 0%, transparent 40%);
+        }
+
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* HEADER HERO */
+        header {
+            text-align: center;
+            padding: 40px 20px 20px;
+        }
+
+        .layout-switcher-banner {
+            background: rgba(0, 210, 255, 0.08);
+            border: 1px solid var(--accent-cyan);
+            border-radius: 30px;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+        }
+
+        .switcher-link {
+            color: var(--accent-neon);
+            text-decoration: none;
+            font-weight: 700;
+            background: rgba(0, 240, 118, 0.15);
+            padding: 4px 12px;
+            border-radius: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .switcher-link:hover {
+            background: var(--accent-neon);
+            color: #000;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF 0%, #8B949E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* MAIN FLOWCHART LAYOUT */
+        .flowchart-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* STAGE SECTION */
+        .flow-stage {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .flow-stage:hover {
+            border-color: rgba(0, 240, 118, 0.3);
+        }
+
+        .stage-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 12px;
+        }
+
+        .stage-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent-neon);
+            color: #000;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .stage-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .nodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+        }
+
+        /* NODE CARDS */
+        .node-card {
+            background: #090F17;
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .node-card:hover {
+            border-color: var(--accent-neon);
+            transform: translateY(-3px);
+            background: #111A26;
+            box-shadow: 0 6px 15px rgba(0, 240, 118, 0.15);
+        }
+
+        .node-card.active {
+            border-color: var(--accent-neon);
+            background: rgba(0, 240, 118, 0.08);
+            box-shadow: 0 0 20px rgba(0, 240, 118, 0.2);
+        }
+
+        .node-badge {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .node-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .node-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .node-arrow {
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--accent-neon);
+            margin: 10px 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
+
+        /* SIDE INSPECTION PANEL */
+        .inspector-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-neon);
+            border-radius: 20px;
+            padding: 28px;
+            position: sticky;
+            top: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px var(--border-glow);
+        }
+
+        .inspect-badge {
+            display: inline-block;
+            background: rgba(0, 240, 118, 0.12);
+            color: var(--accent-neon);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .inspect-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .inspect-question-tag {
+            background: rgba(0, 210, 255, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .inspect-content {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .inspect-code {
+            background: #05080C;
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--accent-neon);
+            overflow-x: auto;
+            margin-bottom: 16px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-subtle);
+            margin-top: 50px;
+        }
+
+        @media (max-width: 950px) {
+            .flowchart-wrapper { grid-template-columns: 1fr; }
+            .inspector-panel { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO HEADER -->
+    <header>
+        <div class="layout-switcher-banner">
+            <span>🔀 Layout Version Comparison:</span>
+            <a href="index.html" class="switcher-link">Switch to Version A (Pitch Deck UI)</a>
+            <span style="color: var(--accent-neon); font-weight:700;">Active: Version B (Interactive Flowchart)</span>
+        </div>
+
+        <h1>Sample Energy OS — Interactive Methodology Flowchart</h1>
+        <p class="hero-sub">Visual Step-by-Step Architecture & Challenge Solution Inspector | Henkel Düsseldorf Pilot</p>
+    </header>
+
+    <div class="container">
+        <div class="flowchart-wrapper">
+            
+            <!-- LEFT COLUMN: INTERACTIVE STAGES & NODES -->
+            <div>
+
+                <!-- STAGE 1 -->
+                <div class="flow-stage">
+                    <div class="stage-header">
+                        <div class="stage-num">1</div>
+                        <div class="stage-title">OSINT Market Intelligence & Physical Plant SLAs</div>
+                    </div>
+                    <div class="nodes-grid">
+                        <div class="node-card active" onclick="inspectNode('node1_1', this)">
+                            <div class="node-badge">Henkel Plant</div>
+                            <div class="node-title">400k t/a SLA</div>
+                            <div class="node-desc">Daily Detergent Slurry SLA: 1,095.89 t/day</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node1_2', this)">
+                            <div class="node-badge">Primary Asset</div>
+                            <div class="node-title">84 MW Gas CHP</div>
+                            <div class="node-desc">Captive turbine & 60 MWt spray-drying steam</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node1_3', this)">
+                            <div class="node-badge">Thermal Storage</div>
+                            <div class="node-title">Stadtwerke Link</div>
+                            <div class="node-desc">700 m² heat center + 3.6 km pipeline link</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="node-arrow">↓</div>
+
+                <!-- STAGE 2 -->
+                <div class="flow-stage">
+                    <div class="stage-header">
+                        <div class="stage-num">2</div>
+                        <div class="stage-title">Telemetry Sanitation & Anti-Hallucination SSoT</div>
+                    </div>
+                    <div class="nodes-grid">
+                        <div class="node-card" onclick="inspectNode('node2_1', this)">
+                            <div class="node-badge">Synthesizer</div>
+                            <div class="node-title">data_generator.py</div>
+                            <div class="node-desc">96-interval EPEX SPOT solar crash curves</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node2_2', this)">
+                            <div class="node-badge">Sanitation</div>
+                            <div class="node-title">data_validator.py</div>
+                            <div class="node-desc">Interpolation imputation & load clipping</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node2_3', this)">
+                            <div class="node-badge">Zero-Hallucination</div>
+                            <div class="node-title">SSoT Architecture</div>
+                            <div class="node-desc">Deterministic MILP solver bound (0% AI risk)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="node-arrow">↓</div>
+
+                <!-- STAGE 3 -->
+                <div class="flow-stage">
+                    <div class="stage-header">
+                        <div class="stage-num">3</div>
+                        <div class="stage-title">Deterministic MILP Solver & Sensitivity Matrix</div>
+                    </div>
+                    <div class="nodes-grid">
+                        <div class="node-card" onclick="inspectNode('node3_1', this)">
+                            <div class="node-badge">PuLP MILP Solver</div>
+                            <div class="node-title">optimizer.py</div>
+                            <div class="node-desc">Daily OpEx savings: €5,981.71 (3.77%)</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node3_2', this)">
+                            <div class="node-badge">Core Metric</div>
+                            <div class="node-title">€/ton Normalization</div>
+                            <div class="node-desc">€5.46 / metric ton detergent saved</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node3_3', this)">
+                            <div class="node-badge">Monte Carlo</div>
+                            <div class="node-title">sensitivity_engine.py</div>
+                            <div class="node-desc">100 scenarios: P10 (€1.48) to P90 (€22.13)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="node-arrow">↓</div>
+
+                <!-- STAGE 4 -->
+                <div class="flow-stage">
+                    <div class="stage-header">
+                        <div class="stage-num">4</div>
+                        <div class="stage-title">Multi-Agent Environment Orchestration & Audit</div>
+                    </div>
+                    <div class="nodes-grid">
+                        <div class="node-card" onclick="inspectNode('node4_1', this)">
+                            <div class="node-badge">Agentic Workflow</div>
+                            <div class="node-title">Multi-Agent Roles</div>
+                            <div class="node-desc">Research, Validator, MILP & UI agents</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node4_2', this)">
+                            <div class="node-badge">Contract Checks</div>
+                            <div class="node-title">tests/test_suite.py</div>
+                            <div class="node-desc">Automated Pytest verification suite</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node4_3', this)">
+                            <div class="node-badge">Audit Export</div>
+                            <div class="node-title">AUDIT_LEDGER.json</div>
+                            <div class="node-desc">Verifiable proof trail & GitHub Actions CI/CD</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="node-arrow">↓</div>
+
+                <!-- STAGE 5 -->
+                <div class="flow-stage">
+                    <div class="stage-header">
+                        <div class="stage-num">5</div>
+                        <div class="stage-title">Commercial Sales Pitch & C-Suite Web Application</div>
+                    </div>
+                    <div class="nodes-grid">
+                        <div class="node-card" onclick="inspectNode('node5_1', this)">
+                            <div class="node-badge">1-Day Audit</div>
+                            <div class="node-title">First Visit Strategy</div>
+                            <div class="node-desc">15-min steam logs & Plant Manager meeting</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node5_2', this)">
+                            <div class="node-badge">Executive UI</div>
+                            <div class="node-title">app.py & 1-Click Bat</div>
+                            <div class="node-desc">Streamlit presentation & Sample Energy OS.bat</div>
+                        </div>
+                        <div class="node-card" onclick="inspectNode('node5_3', this)">
+                            <div class="node-badge">EBITDA Impact</div>
+                            <div class="node-title">Commercial Pitch</div>
+                            <div class="node-desc">€2.18M/yr EBITDA boost with zero CapEx</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: INTERACTIVE NODE INSPECTOR -->
+            <div>
+                <div class="inspector-panel" id="inspectPanel">
+                    <div class="inspect-badge" id="inspBadge">STAGE 1.1 NODE</div>
+                    <div class="inspect-title" id="inspTitle">Henkel Düsseldorf Plant SLA</div>
+                    
+                    <div class="inspect-question-tag" id="inspQuestion">
+                        🎯 Challenge Question Answered: How do we normalize energy savings to core business SLAs?
+                    </div>
+
+                    <div class="inspect-content" id="inspDesc">
+                        Henkel's global flagship headquarters in Düsseldorf-Holthausen produces 400,000 metric tons of detergent and adhesives annually. The baseline daily slurry throughput is 1,095.89 metric tons/day. All energy savings are normalized to <strong>€ / metric ton of product saved</strong>.
+                    </div>
+
+                    <div class="inspect-code" id="inspCode">
+Daily Detergent SLA = 400,000 tons / 365 days = 1,095.89 tons/day
+Normalized Unit Metric (€/ton) = €5,981.71 / 1,095.89 tons = €5.46 / ton
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Sample Energy OS — Interactive Methodology Flowchart Explorer</p>
+        <p style="margin-top: 6px;">Created by <strong>Yash Gupta</strong> for the RIZM Forward Deployed AI Energy Engineer Hiring Challenge</p>
+        <p style="margin-top: 10px;">
+            <a href="https://github.com/Realsinister/rizm-agentic-energy-os-henkel-pilot" target="_blank" style="color: var(--accent-neon); font-weight: 700; text-decoration: none;">
+                📂 View Source Code on GitHub (Realsinister/rizm-agentic-energy-os-henkel-pilot)
+            </a>
+        </p>
+    </footer>
+
+    <!-- INTERACTIVE NODE INSPECTION JAVASCRIPT -->
+    <script>
+        const nodeData = {
+            node1_1: {
+                badge: "STAGE 1.1 NODE",
+                title: "Henkel Düsseldorf Plant SLA",
+                question: "🎯 Challenge Question Answered: How do we normalize energy savings to core business SLAs?",
+                desc: "Henkel's global flagship headquarters in Düsseldorf-Holthausen produces 400,000 metric tons of detergent and adhesives annually. The baseline daily slurry throughput is 1,095.89 metric tons/day. All energy savings are normalized to € / metric ton of product saved.",
+                code: "Daily Detergent SLA = 400,000 tons / 365 days = 1,095.89 tons/day\nNormalized Unit Metric (€/ton) = €5,981.71 / 1,095.89 tons = €5.46 / ton"
+            },
+            node1_2: {
+                badge: "STAGE 1.2 NODE",
+                title: "Captive 84 MW Gas CHP Station",
+                question: "🎯 Challenge Question Answered: What is the primary physical energy asset on-site?",
+                desc: "Captive gas-fired Combined Heat & Power (CHP) turbine supplying continuous electricity and high-temperature steam (60 MWt) for detergent spray-drying towers.",
+                code: "Electrical Capacity: 84.0 MW | Min Stable Load: 20.0 MW\nHeat-to-Power Ratio (HTP): 1.20 | Electrical Efficiency: 42.0%"
+            },
+            node1_3: {
+                badge: "STAGE 1.3 NODE",
+                title: "Stadtwerke District Heat Export Link",
+                question: "🎯 Challenge Question Answered: How do we decouple thermal production from process heat?",
+                desc: "700 m² Stadtwerke Düsseldorf energy center with 3.6 km pipeline link exporting up to 30 MWt excess CHP thermal output into municipal district heating network at €28/MWh.",
+                code: "Thermal Balance: H_chp(t) + H_boiler(t) == Thermal_Demand(t) + H_dh(t)\nFeed-in Revenue = H_dh(t) * R_dh (€28/MWh)"
+            },
+            node2_1: {
+                badge: "STAGE 2.1 NODE",
+                title: "Telemetry Synthesizer (`src/data_generator.py`)",
+                question: "🎯 Challenge Question Answered: How is realistic 15-min interval SCADA data generated?",
+                desc: "Synthesizes 96-interval (15-minute, 24-hour) EPEX SPOT price curves featuring mid-day solar price crashes (-€15 to +€10/MWh) alongside morning/evening demand peaks.",
+                code: "Spot Price Pattern = Base(65.0) + MorningPeak(70.0) + EveningPeak(90.0) - SolarCrash(-85.0) + Noise"
+            },
+            node2_2: {
+                badge: "STAGE 2.2 NODE",
+                title: "Telemetry Validator (`src/data_validator.py`)",
+                question: "🎯 Challenge Question Answered: How do we make the data pipeline fail-proof?",
+                desc: "Fail-proof telemetry validator imputing missing timestamps via linear interpolation, clipping sensor anomalies, and outputting clean validation status reports.",
+                code: "df[col] = df[col].interpolate(method='linear')\ndf['Electrical_Demand_MW'] = df['Electrical_Demand_MW'].clip(lower=0.0)"
+            },
+            node2_3: {
+                badge: "STAGE 2.3 NODE",
+                title: "Zero-Hallucination SSoT Architecture",
+                question: "🎯 Challenge Question Answered: How do we eliminate AI hallucinations in industrial AI?",
+                desc: "SYSTEM_ARCHITECTURE.md and site_config.json serve as the Single Source of Truth (SSoT). All dispatch commands are bound by deterministic MILP equations (0% AI risk).",
+                code: "Zero-Hallucination Binding: AI Agent -> SSoT Schema -> PuLP MILP Solver -> Verified Dispatch"
+            },
+            node3_1: {
+                badge: "STAGE 3.1 NODE",
+                title: "PuLP MILP Solver (`src/optimizer.py`)",
+                question: "🎯 Challenge Question Answered: What optimization algorithm calculates the OpEx savings?",
+                desc: "Formulates a Mixed-Integer Linear Program (MILP) solving optimal 84 MW CHP dispatch over 96 intervals. Calculates €5,981.71 daily net OpEx savings (3.77% reduction).",
+                code: "Min Daily_OpEx = Sum_{t=1..96} [ Fuel_Cost + Grid_Cost - Heat_Revenue + Carbon_Tax ] * delta_t"
+            },
+            node3_2: {
+                badge: "STAGE 3.2 NODE",
+                title: "Normalized €/ton Savings Metric",
+                question: "🎯 Challenge Question Answered: Why is €/ton the primary evaluation metric?",
+                desc: "Translates abstract energy megawatt-hours directly into detergent unit profit margins for Henkel C-suite executives.",
+                code: "Base Case:  €5.46 / metric ton saved\nP10 Bound:  €1.48 / metric ton saved\nP90 Bound: €22.13 / metric ton saved"
+            },
+            node3_3: {
+                badge: "STAGE 3.3 NODE",
+                title: "100-Scenario Monte Carlo Grid Search",
+                question: "🎯 Challenge Question Answered: How do we prove financial resilience under market volatility?",
+                desc: "Executes a 100-scenario sensitivity sweep across gas prices (€25–€60/MWh), EU ETS carbon tax (€50–€140/tCO2), and spot volatility (0.8x–1.5x).",
+                code: "P10 Bound: €1.48 / ton (€0.59M / yr)\nMean Across Grid: €9.15 / ton (€3.66M / yr)\nP90 Bound: €22.13 / ton (€8.85M / yr)"
+            },
+            node4_1: {
+                badge: "STAGE 4.1 NODE",
+                title: "Multi-Agent Environment Orchestration",
+                question: "🎯 Challenge Question Answered: How were parallel AI subagents managed?",
+                desc: "Scoped parallel subagents (Research, Validator, MILP Solver, UI) operating under contract-based inter-agent communication to eliminate race conditions.",
+                code: "Subagents: ResearchAgent -> ValidatorAgent -> MILPSolverAgent -> UIAgent"
+            },
+            node4_2: {
+                badge: "STAGE 4.2 NODE",
+                title: "Automated Contract Verification Suite",
+                question: "🎯 Challenge Question Answered: How do we verify system balance laws automatically?",
+                desc: "Pytest verification suite testing electrical balance (P_chp + P_grid == Elec_Demand) and thermal balance (H_chp + H_boiler == Therm_Demand + H_dh).",
+                code: "pytest tests/test_suite.py -v -> 3/3 passed in 0.70s"
+            },
+            node4_3: {
+                badge: "STAGE 4.3 NODE",
+                title: "Verifiable Audit Ledger & CI/CD",
+                question: "🎯 Challenge Question Answered: How is proof exported for executive review?",
+                desc: "Exports AUDIT_LEDGER.json containing site metadata, parameters, validation reports, and sensitivity matrices. CI/CD runs on every Git commit.",
+                code: ".github/workflows/ci.yml -> Automated Build & Audit Verification"
+            },
+            node5_1: {
+                badge: "STAGE 5.1 NODE",
+                title: "First On-Site Visit Strategy (1-Day Audit)",
+                question: "🎯 Challenge Question Answered: What is the single load-bearing data request & meeting strategy?",
+                desc: "Request 15-minute sub-metered heat/steam flow logs over 12 months. Meet for 30 minutes with Plant Operations Manager (Dipl.-Ing. Anke Kappenhagen).",
+                code: "Data Request: 15-min sub-metered steam flow logs\nStakeholder: Plant Operations Manager (Sole SLA authority)"
+            },
+            node5_2: {
+                badge: "STAGE 5.2 NODE",
+                title: "Executive Streamlit UI & 1-Click Bat",
+                question: "🎯 Challenge Question Answered: How can stakeholders run the web tool instantly?",
+                desc: "Streamlit web application featuring 4 presentation tabs, parameter reset button, cumulative cost area charts, and 1-click Sample Energy OS.bat launcher.",
+                code: "Double-click 'Sample Energy OS.bat' -> Opens http://localhost:8501 automatically"
+            },
+            node5_3: {
+                badge: "STAGE 5.3 NODE",
+                title: "Commercial Pitch & EBITDA Impact",
+                question: "🎯 Challenge Question Answered: How does an FDE market the software to prospective clients?",
+                desc: "Delivers €5,981.71 daily savings (€2.18M/yr EBITDA boost) with zero capital expenditure by monetizing existing physical infrastructure.",
+                code: "Annualized EBITDA Impact: €2.18 Million / year\nCapEx Investment Required: €0.00 (OpEx First Deployment)"
+            }
+        };
+
+        function inspectNode(nodeKey, element) {
+            document.querySelectorAll('.node-card').forEach(n => n.classList.remove('active'));
+            element.classList.add('active');
+
+            const data = nodeData[nodeKey];
+            if (data) {
+                document.getElementById('inspBadge').innerText = data.badge;
+                document.getElementById('inspTitle').innerText = data.title;
+                document.getElementById('inspQuestion').innerText = data.question;
+                document.getElementById('inspDesc').innerText = data.desc;
+                document.getElementById('inspCode').innerText = data.code;
+            }
+        }
+    </script>
+</body>
+</html>
