@@ -6,17 +6,26 @@ This repository presents a complete, data-driven, and algorithmically grounded p
 
 ---
 
+## 🌐 Live Interactive Process & Commercial Pitch Deck (GitHub Pages)
+
+👉 **[Launch Interactive Web Infographic & Pitch Deck (index.html)](file:///d:/RIZM_Challenge/index.html)**
+
+*(When pushed to GitHub, enable GitHub Pages under Repository Settings -> Pages to serve `index.html` as a live shareable website link for recruiters and executives!)*
+
+---
+
 ## 📌 Executive Navigation & Key Entry Points
 
-1. **📄 [SUBMISSION_REPORT.md](file:///d:/RIZM_Challenge/SUBMISSION_REPORT.md)**: **THE CORE DELIVERABLE**. Contains the executive write-up addressing:
+1. **🌐 [index.html (Interactive Infographic & Pitch Deck)](file:///d:/RIZM_Challenge/index.html)**: Interactive visual flowchart, OSINT asset map, live ROI simulator, and commercial FDE strategy.
+2. **📄 [SUBMISSION_REPORT.md](file:///d:/RIZM_Challenge/SUBMISSION_REPORT.md)**: **THE CORE DELIVERABLE**. Contains the executive write-up addressing:
    - Grounded business use cases in **€ / metric ton** of detergent produced.
    - The single most load-bearing data request and single key stakeholder meeting strategy.
    - Multi-variable sensitivity analysis (€/ton confidence matrix: P10 to P90 bounds).
    - Methodological trade-offs, MILP shadow pricing, and explicit toolchain disclosure.
-2. **🏗️ [SYSTEM_ARCHITECTURE.md](file:///d:/RIZM_Challenge/SYSTEM_ARCHITECTURE.md)**: **SINGLE SOURCE OF TRUTH (SSOT)** detailing 84 MW CHP parameters, thermal load limits, district heat links, MILP formulation, and agent verification checkpoints.
-3. **⚡ [Sample Energy OS.bat](file:///d:/RIZM_Challenge/Sample%20Energy%20OS.bat)**: **1-CLICK LAUNCHER**. Instantly installs dependencies and opens the interactive Streamlit dashboard.
-4. **💻 [src/sample_energy_os.py](file:///d:/RIZM_Challenge/src/sample_energy_os.py)**: Reusable CLI Engine for Forward Deployed AI Energy Engineers.
-5. **🔄 [src/run_full_pipeline.py](file:///d:/RIZM_Challenge/src/run_full_pipeline.py)**: Automated end-to-end master pipeline execution script.
+3. **🏗️ [SYSTEM_ARCHITECTURE.md](file:///d:/RIZM_Challenge/SYSTEM_ARCHITECTURE.md)**: **SINGLE SOURCE OF TRUTH (SSOT)** detailing 84 MW CHP parameters, thermal load limits, district heat links, MILP formulation, and agent verification checkpoints.
+4. **⚡ [Sample Energy OS.bat](file:///d:/RIZM_Challenge/Sample%20Energy%20OS.bat)**: **1-CLICK LAUNCHER**. Instantly installs dependencies and opens the interactive Streamlit dashboard.
+5. **💻 [src/sample_energy_os.py](file:///d:/RIZM_Challenge/src/sample_energy_os.py)**: Reusable CLI Engine for Forward Deployed AI Energy Engineers.
+6. **🔄 [src/run_full_pipeline.py](file:///d:/RIZM_Challenge/src/run_full_pipeline.py)**: Automated end-to-end master pipeline execution script.
 
 ---
 
@@ -38,6 +47,7 @@ This repository presents a complete, data-driven, and algorithmically grounded p
 
 ```
 RIZM_Challenge/
+├── index.html                     # Interactive Web Infographic & Pitch Deck (GitHub Pages)
 ├── README.md                      # Primary entry point & reviewer guide
 ├── SUBMISSION_REPORT.md           # Executive report, €/ton use cases & sensitivity
 ├── SYSTEM_ARCHITECTURE.md         # Single Source of Truth (SSOT) system specs
@@ -70,7 +80,8 @@ RIZM_Challenge/
 │   ├── sensitivity_summary.json
 │   └── AUDIT_LEDGER.json
 │
-└── docs/                          # Reference challenge documentation
+└── docs/                          # Reference challenge documentation & GitHub Pages
+    ├── index.html                 # Copy of interactive web infographic for /docs deploy
     ├── RIZM Challenge Case.md
     └── RIZM Challenge Deep Research.md
 ```
