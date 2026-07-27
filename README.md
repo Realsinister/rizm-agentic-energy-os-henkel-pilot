@@ -14,7 +14,7 @@ This repository presents a complete, data-driven, and algorithmically grounded p
    - Multi-variable sensitivity analysis (€/ton confidence matrix: P10 to P90 bounds).
    - Methodological trade-offs, MILP shadow pricing, and explicit toolchain disclosure.
 2. **🏗️ [SYSTEM_ARCHITECTURE.md](file:///d:/RIZM_Challenge/SYSTEM_ARCHITECTURE.md)**: **SINGLE SOURCE OF TRUTH (SSOT)** detailing 84 MW CHP parameters, thermal load limits, district heat links, MILP formulation, and agent verification checkpoints.
-3. **⚡ [run_dashboard.bat](file:///d:/RIZM_Challenge/run_dashboard.bat)**: **1-CLICK LAUNCHER**. Instantly installs dependencies and opens the interactive Streamlit dashboard.
+3. **⚡ [Sample Energy OS.bat](file:///d:/RIZM_Challenge/Sample%20Energy%20OS.bat)**: **1-CLICK LAUNCHER**. Instantly installs dependencies and opens the interactive Streamlit dashboard.
 4. **💻 [src/sample_energy_os.py](file:///d:/RIZM_Challenge/src/sample_energy_os.py)**: Reusable CLI Engine for Forward Deployed AI Energy Engineers.
 5. **🔄 [src/run_full_pipeline.py](file:///d:/RIZM_Challenge/src/run_full_pipeline.py)**: Automated end-to-end master pipeline execution script.
 
@@ -42,7 +42,7 @@ RIZM_Challenge/
 ├── SUBMISSION_REPORT.md           # Executive report, €/ton use cases & sensitivity
 ├── SYSTEM_ARCHITECTURE.md         # Single Source of Truth (SSOT) system specs
 ├── site_config.json               # Modular site configuration schema
-├── run_dashboard.bat              # 1-Click Windows Batch Launcher for Dashboard
+├── Sample Energy OS.bat           # 1-Click Windows Batch Launcher for Dashboard
 ├── requirements.txt               # Dependencies
 ├── .gitignore                     # Git ignore rules
 │
@@ -80,7 +80,7 @@ RIZM_Challenge/
 ## 🛠️ Installation & Running Instructions
 
 ### 🚀 Option A: 1-Click Dashboard Launch (Recommended for Windows)
-Simply double-click **`run_dashboard.bat`** (or run `run_dashboard.bat` in your terminal). It will automatically check Python dependencies, install any missing packages, and open the interactive Streamlit dashboard in your default browser at `http://localhost:8501`.
+Simply double-click **`Sample Energy OS.bat`** (or run `.\Sample Energy OS.bat` in your terminal). It will automatically check Python dependencies, install any missing packages, and open the interactive Streamlit dashboard in your default browser at `http://localhost:8501`.
 
 ---
 
