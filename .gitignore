@@ -7,9 +7,12 @@ venv/
 ENV/
 env/
 
-# PyInstaller Build Artifacts
+# PyInstaller Build Artifacts & Standalone Executables
 build/
+dist/
 *.spec
+*.exe
+*.zip
 
 # IDE & OS
 .vscode/
