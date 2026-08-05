@@ -1,8 +1,35 @@
 import os
 import sys
-import webbrowser
 import time
 import threading
+import webbrowser
+import importlib.metadata
+
+class DummyDist:
+    version = "1.60.0"
+    metadata = {"Version": "1.60.0", "Name": "streamlit"}
+
+_orig_version = importlib.metadata.version
+_orig_distribution = importlib.metadata.distribution
+
+def _safe_version(distribution_name):
+    if distribution_name == "streamlit":
+        return "1.60.0"
+    try:
+        return _orig_version(distribution_name)
+    except Exception:
+        return "1.0.0"
+
+def _safe_distribution(distribution_name):
+    if distribution_name == "streamlit":
+        return DummyDist()
+    try:
+        return _orig_distribution(distribution_name)
+    except Exception:
+        return DummyDist()
+
+importlib.metadata.version = _safe_version
+importlib.metadata.distribution = _safe_distribution
 
 def resolve_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
@@ -10,16 +37,18 @@ def resolve_path(relative_path):
     return os.path.join(os.path.abspath("."), relative_path)
 
 def open_browser():
-    time.sleep(1.5)
-    webbrowser.open("http://localhost:8501")
+    time.sleep(2.0)
+    try:
+        webbrowser.open("http://localhost:8501")
+    except Exception:
+        pass
 
 if __name__ == '__main__':
-    print("=" * 65)
-    print("  ⚡ Sample Energy OS — Henkel Düsseldorf Industrial Energy OS ⚡  ")
-    print("=" * 65)
+    print("=================================================================")
+    print("  Sample Energy OS -- Henkel Duesseldorf Industrial Energy OS    ")
+    print("=================================================================")
     print("Launching embedded Web Application server on http://localhost:8501...")
     
-    # Set sys.path so src module can be imported
     base_dir = resolve_path(".")
     if base_dir not in sys.path:
         sys.path.insert(0, base_dir)
@@ -30,7 +59,6 @@ if __name__ == '__main__':
 
     app_path = resolve_path(os.path.join("src", "app.py"))
     
-    # Thread to open browser automatically
     threading.Thread(target=open_browser, daemon=True).start()
 
     import streamlit.web.cli as stcli
