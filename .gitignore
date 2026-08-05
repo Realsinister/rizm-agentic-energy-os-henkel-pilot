@@ -7,6 +7,10 @@ venv/
 ENV/
 env/
 
+# PyInstaller Build Artifacts
+build/
+*.spec
+
 # IDE & OS
 .vscode/
 .idea/

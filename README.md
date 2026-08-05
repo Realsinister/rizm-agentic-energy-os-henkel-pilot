@@ -33,16 +33,17 @@ To execute complex engineering research, data validation, mathematical solving, 
 ## 📌 Executive Navigation & Key Entry Points
 
 1. **🌐 [index.html (Interactive Methodology Website)](file:///d:/RIZM_Challenge/index.html)**: Interactive website explaining the 5-stage engineering lifecycle with real-time inspector dock, MILP equations, and OSINT asset maps.
-2. **⚡ [Sample Energy OS.bat](file:///d:/RIZM_Challenge/Sample%20Energy%20OS.bat)**: **1-CLICK LAUNCHER FOR STREAMLIT WEB APPLICATION**. Instantly installs dependencies and opens the interactive Streamlit web application (`src/app.py`).
-3. **📄 [SUBMISSION_REPORT.md](file:///d:/RIZM_Challenge/SUBMISSION_REPORT.md)**: **THE CORE DELIVERABLE**. Contains the executive write-up addressing:
+2. **📦 [Sample_Energy_OS_v1.0_Standalone.zip](file:///d:/RIZM_Challenge/Sample_Energy_OS_v1.0_Standalone.zip)**: **1-CLICK STANDALONE EXECUTABLE (Zero Setup Required)**. Contains single `Sample_Energy_OS.exe` for instant execution without Python or environment setup.
+3. **⚡ [Sample Energy OS.bat](file:///d:/RIZM_Challenge/Sample%20Energy%20OS.bat)**: **1-CLICK LAUNCHER FOR STREAMLIT WEB APPLICATION**. Instantly installs dependencies and opens the interactive Streamlit web application (`src/app.py`).
+4. **📄 [SUBMISSION_REPORT.md](file:///d:/RIZM_Challenge/SUBMISSION_REPORT.md)**: **THE CORE DELIVERABLE**. Contains the executive write-up addressing:
    - Grounded business use cases in **€ / metric ton** of detergent produced.
    - Anti-hallucination SSoT layer and multi-agent environment management.
    - The single most load-bearing data request and single key stakeholder meeting strategy.
    - Multi-variable sensitivity analysis (€/ton confidence matrix: P10 to P90 bounds).
    - Methodological trade-offs, MILP shadow pricing, and explicit toolchain disclosure.
-4. **🏗️ [SYSTEM_ARCHITECTURE.md](file:///d:/RIZM_Challenge/SYSTEM_ARCHITECTURE.md)**: **SINGLE SOURCE OF TRUTH (SSOT)** detailing 84 MW CHP parameters, thermal load limits, district heat links, MILP formulation, and agent verification checkpoints.
-5. **💻 [src/sample_energy_os.py](file:///d:/RIZM_Challenge/src/sample_energy_os.py)**: Reusable CLI Engine for Forward Deployed AI Energy Engineers.
-6. **🔄 [src/run_full_pipeline.py](file:///d:/RIZM_Challenge/src/run_full_pipeline.py)**: Automated end-to-end master pipeline execution script.
+5. **🏗️ [SYSTEM_ARCHITECTURE.md](file:///d:/RIZM_Challenge/SYSTEM_ARCHITECTURE.md)**: **SINGLE SOURCE OF TRUTH (SSOT)** detailing 84 MW CHP parameters, thermal load limits, district heat links, MILP formulation, and agent verification checkpoints.
+6. **💻 [src/sample_energy_os.py](file:///d:/RIZM_Challenge/src/sample_energy_os.py)**: Reusable CLI Engine for Forward Deployed AI Energy Engineers.
+7. **🔄 [src/run_full_pipeline.py](file:///d:/RIZM_Challenge/src/run_full_pipeline.py)**: Automated end-to-end master pipeline execution script.
 
 ---
 
@@ -64,55 +65,67 @@ To execute complex engineering research, data validation, mathematical solving, 
 
 ```
 RIZM_Challenge/
-├── index.html                     # Interactive Methodology & Workflow Website (GitHub Pages)
-├── README.md                      # Primary entry point & reviewer guide
-├── SUBMISSION_REPORT.md           # Executive report, €/ton use cases & sensitivity
-├── SYSTEM_ARCHITECTURE.md         # Single Source of Truth (SSOT) system specs
-├── site_config.json               # Modular site configuration schema
-├── Sample Energy OS.bat           # 1-Click Windows Batch Launcher for Streamlit Web App
-├── requirements.txt               # Dependencies
-├── .gitignore                     # Git ignore rules
+├── Sample_Energy_OS_v1.0_Standalone.zip # 1-Click Standalone Downloadable Package (Zero Setup)
+├── dist/
+│   └── Sample_Energy_OS.exe              # Standalone Windows Executable
+├── index.html                            # Interactive Methodology & Workflow Website (GitHub Pages)
+├── README.md                             # Primary entry point & reviewer guide
+├── SUBMISSION_REPORT.md                  # Executive report, €/ton use cases & sensitivity
+├── SYSTEM_ARCHITECTURE.md                # Single Source of Truth (SSOT) system specs
+├── site_config.json                      # Modular site configuration schema
+├── Sample Energy OS.bat                  # 1-Click Windows Batch Launcher for Streamlit Web App
+├── requirements.txt                      # Dependencies
+├── .gitignore                            # Git ignore rules
 │
-├── archive/                       # Archived design iterations
-│   └── pitch_deck_version_a.html  # Archived Tabbed Pitch Deck layout
+├── archive/                              # Archived design iterations
+│   └── pitch_deck_version_a.html         # Archived Tabbed Pitch Deck layout
 │
 ├── .github/
 │   └── workflows/
-│       └── ci.yml                 # GitHub Actions CI/CD pipeline
+│       └── ci.yml                        # GitHub Actions CI/CD pipeline
 │
-├── src/                           # Core Python source package
+├── src/                                  # Core Python source package
 │   ├── __init__.py
-│   ├── sample_energy_os.py        # Reusable CLI site onboarding engine
-│   ├── optimizer.py               # PuLP MILP deterministic solver
-│   ├── data_generator.py          # 15-min profile dataset synthesizer
-│   ├── data_validator.py          # Telemetry sanitation & quality validator
-│   ├── sensitivity_engine.py      # Monte Carlo & shadow pricing engine
-│   ├── run_full_pipeline.py       # Master pipeline orchestrator
-│   └── app.py                     # Streamlit web application & executive UI
+│   ├── sample_energy_os.py               # Reusable CLI site onboarding engine
+│   ├── optimizer.py                      # PuLP MILP deterministic solver
+│   ├── data_generator.py                 # 15-min profile dataset synthesizer
+│   ├── data_validator.py                 # Telemetry sanitation & quality validator
+│   ├── sensitivity_engine.py             # Monte Carlo & shadow pricing engine
+│   ├── run_full_pipeline.py              # Master pipeline orchestrator
+│   └── app.py                            # Streamlit web application & executive UI
 │
-├── tests/                         # Automated unit test suite
+├── tests/                                # Automated unit test suite
 │   ├── __init__.py
-│   └── test_suite.py              # Pytest verification suite
+│   └── test_suite.py                     # Pytest verification suite
 │
-├── data/                          # Generated datasets & audit ledgers
+├── data/                                 # Generated datasets & audit ledgers
 │   ├── industrial_energy_profile.csv
 │   ├── sensitivity_matrix_results.csv
 │   ├── sensitivity_summary.json
 │   └── AUDIT_LEDGER.json
 │
-└── docs/                          # Reference challenge documentation & GitHub Pages root
-    ├── index.html                 # Main entry point for /docs deploy
-    ├── archive/                   # Archived docs layouts
+└── docs/                                 # Reference challenge documentation & GitHub Pages root
+    ├── index.html                        # Main entry point for /docs deploy
+    ├── archive/                          # Archived docs layouts
     ├── RIZM Challenge Case.md
     └── RIZM Challenge Deep Research.md
 ```
 
 ---
 
-## 🛠️ Installation & Running Instructions
+## 🛠️ Installation & Execution Options
 
-### 🚀 Option A: 1-Click Streamlit Web Application Launch (Recommended for Windows)
-Simply double-click **`Sample Energy OS.bat`** (or run `.\Sample Energy OS.bat` in your terminal). It will automatically check Python dependencies, install any missing packages, and open the interactive Streamlit web application (`src/app.py`) in your default browser at `http://localhost:8501`.
+### ⚡ Option 0: Standalone Executable (Zero Setup Required - Recommended)
+Download **`Sample_Energy_OS_v1.0_Standalone.zip`** (or `dist/Sample_Energy_OS.exe`), extract, and double-click **`Sample_Energy_OS.exe`**.
+* **Zero Python installation required**
+* **Zero repository cloning required**
+* **Zero environment/dependency setup required**
+Double-clicking the standalone `.exe` automatically starts the embedded web application server and launches `http://localhost:8501` in your browser.
+
+---
+
+### 🚀 Option A: 1-Click Batch Launcher (For Windows Repository Clones)
+If you have cloned the repository, simply double-click **`Sample Energy OS.bat`** (or run `.\Sample Energy OS.bat` in your terminal). It will automatically check Python dependencies, install any missing packages, and open the interactive Streamlit web application (`src/app.py`) in your default browser at `http://localhost:8501`.
 
 ---
 
