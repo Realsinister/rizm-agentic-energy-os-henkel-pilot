@@ -6,6 +6,12 @@ Executive Presentation & Interactive Web Dashboard (app.py)
 import sys
 import os
 
+import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
 # Ensure project root and src directory are in sys.path
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = os.path.dirname(CURRENT_DIR)
