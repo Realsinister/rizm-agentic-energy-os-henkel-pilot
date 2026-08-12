@@ -1,9 +1,23 @@
 @echo off
 TITLE Sample Energy OS - Henkel Pilot Dashboard Launcher
+cd /d "%~dp0"
+
 echo ==================================================================
 echo   Sample Energy OS -- Henkel Pilot Streamlit Dashboard Launcher
 echo ==================================================================
 echo.
+
+:: Verify that the repository is extracted
+if not exist "src\app.py" (
+    echo [ERROR] Could not find "src\app.py"!
+    echo.
+    echo [IMPORTANT] If you are running this file directly from inside a ZIP archive,
+    echo please EXTRACT ALL files from the ZIP folder to a local folder first.
+    echo.
+    echo Press any key to exit...
+    pause >nul
+    exit /b 1
+)
 
 :: Set PYTHONPATH to project root and user site-packages
 set PYTHONPATH=.;%APPDATA%\Python\Python314\site-packages;%PYTHONPATH%

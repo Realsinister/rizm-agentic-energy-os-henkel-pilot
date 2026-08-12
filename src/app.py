@@ -3,14 +3,23 @@ Sample Energy OS — Henkel Düsseldorf Site Pilot
 Executive Presentation & Interactive Web Dashboard (app.py)
 """
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+import sys
+import os
 
-from src.data_generator import generate_energy_profile
-from src.optimizer import optimize_chp_dispatch, calculate_baseline, DEFAULT_PARAMS
+# Ensure project root and src directory are in sys.path
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PARENT_DIR = os.path.dirname(CURRENT_DIR)
+
+for path in [PARENT_DIR, CURRENT_DIR]:
+    if path not in sys.path:
+        sys.path.insert(0, path)
+
+try:
+    from src.data_generator import generate_energy_profile
+    from src.optimizer import optimize_chp_dispatch, calculate_baseline, DEFAULT_PARAMS
+except ModuleNotFoundError:
+    from data_generator import generate_energy_profile
+    from optimizer import optimize_chp_dispatch, calculate_baseline, DEFAULT_PARAMS
 
 # Page Configuration
 st.set_page_config(
